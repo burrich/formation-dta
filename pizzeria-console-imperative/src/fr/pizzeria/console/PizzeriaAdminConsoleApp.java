@@ -57,6 +57,30 @@ public class PizzeriaAdminConsoleApp {
 				break;
 			case 3:
 				System.out.println("Mise à jour d'une pizza");
+				for (int i = 0; i < pizzas.length; i++) {
+					if (pizzas[i][0] != null) {
+						System.out.print(pizzas[i][0] + " -> ");
+						System.out.print(pizzas[i][1] + " (");
+						System.out.println(pizzas[i][2] + "€)");
+					}
+				}
+				System.out.println("Veuillez choisir la pizza à modifier");
+				System.out.println("(99 pour abandonner)");
+				
+				int pizzaChoice = sc.nextInt();
+				if (pizzaChoice != 99) {
+					System.out.println("Ajout d'une nouvelle pizza");
+					System.out.println("Veuillez saisir le code");
+					code = sc.next();
+					System.out.println("Veuillez saisir le nom (sans espace)");
+					name = sc.next();
+					System.out.println("Veuillez saisir le prix");
+					price = sc.nextDouble();
+					
+					pizzas[pizzaChoice] = new Object[] {code, name, price};
+				}
+		
+				System.out.print("\n");
 				break;
 			case 4:
 				System.out.println("Suppression d'une pizza");

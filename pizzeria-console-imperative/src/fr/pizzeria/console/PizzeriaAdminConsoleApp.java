@@ -14,6 +14,7 @@ public class PizzeriaAdminConsoleApp {
 		pizzas[5] = new Object[] {"SAV", "La savoyarde", 13.00};
 		pizzas[6] = new Object[] {"ORI", "L'orientale", 13.50};
 		pizzas[7] = new Object[] {"IND", "L'indienne", 14.00};
+		int nbPizzas = 8;
 		
 		int choice = 0;
 		
@@ -42,6 +43,17 @@ public class PizzeriaAdminConsoleApp {
 				break;
 			case 2:
 				System.out.println("Ajout d'une nouvelle pizza");
+				System.out.println("Veuillez saisir le code");
+				String code = sc.next();
+				System.out.println("Veuillez saisir le nom (sans espace)");
+				String name = sc.next();
+				System.out.println("Veuillez saisir le prix");
+				double price = sc.nextDouble();
+				
+				pizzas[nbPizzas] = new Object[] {code, name, price};
+				nbPizzas++;
+
+				System.out.print("\n");
 				break;
 			case 3:
 				System.out.println("Mise à jour d'une pizza");

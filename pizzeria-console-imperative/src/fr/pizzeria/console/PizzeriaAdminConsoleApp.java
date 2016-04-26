@@ -5,16 +5,16 @@ import java.util.Scanner;
 public class PizzeriaAdminConsoleApp {
 
 	public static void main(String[] args) {
-		Object[][] pizzas = {
-				{"PEP", "Pépéroni", 12.50},
-				{"MAR", "Margherita", 14.00},
-				{"REI", "La Reine", 11.50},
-				{"FRO", "Les 4 fromages", 12.00},
-				{"CAN", "La cannibale", 12.50},
-				{"SAV", "La savoyarde", 13.00},
-				{"ORI", "L'orientale", 13.50},
-				{"IND", "L'indienne", 14.00}
-		};
+		Object[][] pizzas = new Object[100][3];
+		pizzas[0] = new Object[] {"PEP", "Pépéroni", 12.50};
+		pizzas[1] = new Object[] {"MAR", "Margherita", 14.00};
+		pizzas[2] = new Object[] {"REI", "La Reine", 11.50};
+		pizzas[3] = new Object[] {"FRO", "Les 4 fromages", 12.00};
+		pizzas[4] = new Object[] {"CAN", "La cannibale", 12.50};
+		pizzas[5] = new Object[] {"SAV", "La savoyarde", 13.00};
+		pizzas[6] = new Object[] {"ORI", "L'orientale", 13.50};
+		pizzas[7] = new Object[] {"IND", "L'indienne", 14.00};
+		
 		int choice = 0;
 		
 		while (choice != 99) {
@@ -32,9 +32,11 @@ public class PizzeriaAdminConsoleApp {
 			case 1:
 				System.out.println("Liste des pizzas");
 				for (int i = 0; i < pizzas.length; i++) {
-					System.out.print(pizzas[i][0] + " -> ");
-					System.out.print(pizzas[i][1] + " (");
-					System.out.println(pizzas[i][2] + "€)");
+					if (pizzas[i][0] != null) {
+						System.out.print(pizzas[i][0] + " -> ");
+						System.out.print(pizzas[i][1] + " (");
+						System.out.println(pizzas[i][2] + "€)");
+					}
 				}
 				System.out.print("\n");
 				break;

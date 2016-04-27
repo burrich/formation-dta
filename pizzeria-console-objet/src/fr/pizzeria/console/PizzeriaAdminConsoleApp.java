@@ -64,7 +64,7 @@ public class PizzeriaAdminConsoleApp {
 		pizzas[5] = sav;
 		pizzas[6] = ori;
 		pizzas[7] = ind;
-		int nbPizzas = 8;
+		Pizza.nbPizzas = 8;
 		
 		int choice = 0;
 		
@@ -100,12 +100,12 @@ public class PizzeriaAdminConsoleApp {
 				System.out.println("Veuillez saisir le prix");
 				double price = sc.nextDouble();
 				
-				pizzas[nbPizzas] = new Pizza();
-				pizzas[nbPizzas].id = nbPizzas;
-				pizzas[nbPizzas].code = code;
-				pizzas[nbPizzas].nom = name;
-				pizzas[nbPizzas].prix = price;
-				nbPizzas++;
+				pizzas[Pizza.nbPizzas] = new Pizza();
+				pizzas[Pizza.nbPizzas].id = Pizza.nbPizzas;
+				pizzas[Pizza.nbPizzas].code = code;
+				pizzas[Pizza.nbPizzas].nom = name;
+				pizzas[Pizza.nbPizzas].prix = price;
+				Pizza.nbPizzas++;
 
 				System.out.print("\n");
 				break;
@@ -157,9 +157,9 @@ public class PizzeriaAdminConsoleApp {
 						pizzas[numPizza -1] = pizzas[numPizza];
 						numPizza++;
 					}
-					pizzas[nbPizzas-1] = null;
+					pizzas[Pizza.nbPizzas-1] = null;
 				}
-				nbPizzas--;
+				Pizza.nbPizzas--;
 		
 				System.out.print("\n");
 				break;

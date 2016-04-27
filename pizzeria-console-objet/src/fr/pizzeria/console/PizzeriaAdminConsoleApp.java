@@ -4,7 +4,7 @@ import java.util.Scanner;
 import fr.pizzeria.model.Pizza;
 
 /**
- * Administration de pizzas en mode console
+ * Administration d'une pizzeria en mode console
  * @author Nicolas
  */
 public class PizzeriaAdminConsoleApp {
@@ -16,13 +16,13 @@ public class PizzeriaAdminConsoleApp {
 	public static void main(String[] args) {
 		Pizza[] pizzas = genererPizzas();
 		
-		int choice = 0;
-		while (choice != 99) {
+		int choix = 0;
+		while (choix != 99) {
 			afficherMenu();
 			Scanner sc = new Scanner(System.in);
-			choice = sc.nextInt();
+			choix = sc.nextInt();
 			
-			switch(choice) {
+			switch(choix) {
 			case 1:
 				System.out.println("Liste des pizzas");
 				afficherPizzas(pizzas);
@@ -32,7 +32,7 @@ public class PizzeriaAdminConsoleApp {
 			case 2:
 				System.out.println("Ajout d'une nouvelle pizza");
 				pizzas[Pizza.nbPizzas] = saisiePizza(sc);
-				pizzas[Pizza.nbPizzas].id = Pizza.nbPizzas;
+				pizzas[Pizza.nbPizzas].setId(Pizza.nbPizzas);
 				Pizza.nbPizzas++;
 				
 				System.out.print("\n");
@@ -43,9 +43,9 @@ public class PizzeriaAdminConsoleApp {
 				System.out.println("Veuillez choisir la pizza à modifier");
 				System.out.println("(99 pour abandonner)");
 				
-				int pizzaChoice = sc.nextInt();
-				if (pizzaChoice != 99) {
-					pizzas[pizzaChoice] = saisiePizza(sc);
+				int choixPizza = sc.nextInt();
+				if (choixPizza != 99) {
+					pizzas[choixPizza] = saisiePizza(sc);
 				}
 		
 				System.out.print("\n");
@@ -103,9 +103,9 @@ public class PizzeriaAdminConsoleApp {
 	private static void afficherPizzas(Pizza[] pizzas) {
 		for (int i = 0; i < pizzas.length; i++) {
 			if (pizzas[i] != null) {
-				System.out.print(pizzas[i].code + " -> ");
-				System.out.print(pizzas[i].nom + " (");
-				System.out.println(pizzas[i].prix + "€)");
+				System.out.print(pizzas[i].getCode() + " -> ");
+				System.out.print(pizzas[i].getNom() + " (");
+				System.out.println(pizzas[i].getPrix() + "€)");
 			}
 		}
 	}
@@ -119,14 +119,14 @@ public class PizzeriaAdminConsoleApp {
 		System.out.println("Veuillez saisir le code");
 		String code = sc.next();
 		System.out.println("Veuillez saisir le nom (sans espace)");
-		String name = sc.next();
+		String nom = sc.next();
 		System.out.println("Veuillez saisir le prix");
-		double price = sc.nextDouble();
+		double prix = sc.nextDouble();
 		
 		Pizza pizza = new Pizza();
-		pizza.code = code;
-		pizza.nom = name;
-		pizza.prix = price;
+		pizza.setCode(code);
+		pizza.setNom(nom);
+		pizza.setPrix(prix);
 		
 		return pizza;
 	}
@@ -137,9 +137,9 @@ public class PizzeriaAdminConsoleApp {
 	 * @param pizzas Tableau de Pizza
 	 */
 	private static void supprimerPizza(Scanner sc, Pizza[] pizzas) {
-		int pizzaChoice = sc.nextInt();
-		if (pizzaChoice != 99) {
-			int numPizza = pizzaChoice +1;
+		int choixPizza = sc.nextInt();
+		if (choixPizza != 99) {
+			int numPizza = choixPizza +1;
 			while (pizzas[numPizza] != null) {
 				pizzas[numPizza -1] = pizzas[numPizza];
 				numPizza++;

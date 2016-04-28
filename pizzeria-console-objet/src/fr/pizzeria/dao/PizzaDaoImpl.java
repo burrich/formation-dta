@@ -2,9 +2,17 @@ package fr.pizzeria.dao;
 
 import fr.pizzeria.model.Pizza;
 
+/**
+ * Implémentation de l'interface IPizzaDao.
+ * @see IPizzaDao
+ * @author Nicolas
+ */
 public class PizzaDaoImpl implements IPizzaDao {
 	private Pizza[] pizzas = new Pizza[100];
 	
+	/**
+	 * Initialisation du tableau pizzas.
+	 */
 	public PizzaDaoImpl() {
 		pizzas[0] = new Pizza(0, "PEP", "Pépéroni", 12.50);
 		pizzas[1] = new Pizza(1, "MAR", "Margherita", 14.50);
@@ -46,6 +54,7 @@ public class PizzaDaoImpl implements IPizzaDao {
 		}
 	}
 
+
 	@Override
 	public boolean deletePizza(String codePizza) {
 		ResultatRecherche resultatRecherche = rechercherPizza(pizzas, codePizza);
@@ -59,9 +68,18 @@ public class PizzaDaoImpl implements IPizzaDao {
 		}
 	}
 	
-	private ResultatRecherche rechercherPizza(Pizza[]pizzas, String codePizza) {
+	/**
+	 * Recherche une pizza dans le tableau Pizza à partir de son code. 
+	 * Retourne un objet ResultatRecherche.
+	 * @see ResultatRecherche
+	 * @param pizzas Tableau des Pizza
+	 * @param codePizza Code la pizza
+	 * @return objet ResultatRecherche
+	 */
+	private ResultatRecherche rechercherPizza(Pizza[] pizzas, String codePizza) {
 		boolean pizzaTrouve = false;
 		int indexPizzaTrouve = 0;
+		
 		while (!pizzaTrouve && indexPizzaTrouve < pizzas.length) {
 			if(pizzas[indexPizzaTrouve] != null) {
 				pizzaTrouve = codePizza.equals(pizzas[indexPizzaTrouve].getCode());
@@ -69,14 +87,19 @@ public class PizzaDaoImpl implements IPizzaDao {
 			if (!pizzaTrouve) {
 				indexPizzaTrouve++;
 			}
-		
 		}
+		
 		ResultatRecherche resultat = new ResultatRecherche();
 		resultat.pizzaTrouve = pizzaTrouve;
 		resultat.indexPizzaTrouve = indexPizzaTrouve;
+		
 		return resultat;
 	}
 	
+	/**
+	 * Représente le résultat d'une recherche : si la pizza a été trouvée et son index.
+	 * @author Nicolas
+	 */
 	private static class ResultatRecherche {
 		boolean pizzaTrouve;
 		int indexPizzaTrouve;

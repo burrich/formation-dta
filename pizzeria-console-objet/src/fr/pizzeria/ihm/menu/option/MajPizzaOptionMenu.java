@@ -5,11 +5,20 @@ import java.util.Scanner;
 import fr.pizzeria.dao.IPizzaDao;
 import fr.pizzeria.model.Pizza;
 
+/**
+ * Instanciation de la classe abstraite OptionMenu.
+ * @see OptionMenu
+ * @author Nicolas
+ */
 public class MajPizzaOptionMenu extends OptionMenu {
 	private static final String MAJ_PIZZA_LIBELLE = "Modification d'une pizza";
 
 	private Scanner sc;
 	
+	/**
+	 * @param pizzaDao Interface IPizzaDao
+	 * @param sc Objet Scanner
+	 */
 	public MajPizzaOptionMenu(IPizzaDao pizzaDao, Scanner sc) {
 		super(MAJ_PIZZA_LIBELLE, pizzaDao);
 		this.sc = sc;

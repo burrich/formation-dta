@@ -2,6 +2,10 @@ package fr.pizzeria.ihm.menu.option;
 
 import fr.pizzeria.dao.IPizzaDao;
 
+/**
+ * Classe mère abstraite des options menu.
+ * @author Nicolas
+ */
 public abstract class OptionMenu {
 	private String libelle;
 	protected IPizzaDao pizzaDao;
@@ -22,6 +26,10 @@ public abstract class OptionMenu {
 		this.pizzaDao = pizzaDao;
 	}
 	
+	/**
+	 * Execute l'action de l'option.
+	 * @return Résultat de l'exécution
+	 */
 	public abstract boolean execute();
 
 	/**

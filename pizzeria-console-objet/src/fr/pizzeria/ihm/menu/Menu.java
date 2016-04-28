@@ -10,16 +10,30 @@ import fr.pizzeria.ihm.menu.option.OptionMenu;
 import fr.pizzeria.ihm.menu.option.QuitterOptionMenu;
 import fr.pizzeria.ihm.menu.option.SupprimerPizzaOptionMenu;
 
+/**
+ * Représente le menu console.
+ * @author Nicolas
+ */
 public class Menu {
 	private static final String MENU_TITRE_LIBELLE = "Pizzeria Administration";
 	private OptionMenu[] options;
 	private Scanner sc;
 	
+	/**
+	 * Initialise les options.
+	 * @param sc Objet Scanner
+	 * @param pizzaDao Interface IPizzaDao
+	 */
 	public Menu(Scanner sc, IPizzaDao pizzaDao) {
 		initialiserOptions(pizzaDao, sc);
 		
 	}
 	
+	/**
+	 * Initilialise le scanner et les options.
+	 * @param pizzaDao Interface IPizzaDao
+	 * @param sc Objet Scanner
+	 */
 	private void initialiserOptions(IPizzaDao pizzaDao, Scanner sc) {
 		this.sc = sc;
 		options = new OptionMenu[] {
@@ -31,6 +45,9 @@ public class Menu {
 		};
 	}
 
+	/**
+	 * Affiche le menu et saisie de l'option.
+	 */
 	public void afficher() {
 		boolean continuer = true;
 		

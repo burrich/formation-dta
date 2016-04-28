@@ -3,6 +3,8 @@ package fr.pizzeria.ihm.menu.option;
 import java.util.Scanner;
 
 import fr.pizzeria.dao.IPizzaDao;
+import fr.pizzeria.exception.DaoException;
+import fr.pizzeria.exception.UpdatePizzaException;
 import fr.pizzeria.model.Pizza;
 
 /**
@@ -39,7 +41,11 @@ public class MajPizzaOptionMenu extends OptionMenu {
 		updatePizza.setNom(nom);
 		updatePizza.setPrix(prix);
 		
-		pizzaDao.updatePizza(code, updatePizza);
+		try {
+			pizzaDao.updatePizza(code, updatePizza);
+		} catch (DaoException e) {
+			System.err.println("Echec mise à jour pizza");
+		}
 		
 		return true;
 	}

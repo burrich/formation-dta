@@ -1,5 +1,9 @@
 package fr.pizzeria.dao;
 
+import fr.pizzeria.exception.DaoException;
+import fr.pizzeria.exception.DeletePizzaException;
+import fr.pizzeria.exception.SavePizzaException;
+import fr.pizzeria.exception.UpdatePizzaException;
 import fr.pizzeria.model.Pizza;
 
 /**
@@ -19,7 +23,7 @@ public interface IPizzaDao {
 	 * @param newPizza Objec Pizza
 	 * @return Résultat de l'opération
 	 */
-	boolean savePizza(Pizza newPizza);
+	boolean savePizza(Pizza newPizza) throws DaoException;
 	
 	/**
 	 * Mets à jour la Pizza dans le tableau pizzas[].
@@ -27,12 +31,12 @@ public interface IPizzaDao {
 	 * @param updatePizza Objet Pizza
 	 * @return Résultat de l'opération
 	 */
-	boolean updatePizza(String codePizza, Pizza updatePizza);
+	boolean updatePizza(String codePizza, Pizza updatePizza) throws DaoException;
 	
 	/**
 	 * 
 	 * @param codePizza Code de la Pizza
 	 * @return Résultat de l'opération
 	 */
-	boolean deletePizza(String codePizza);
+	boolean deletePizza(String codePizza) throws DaoException;
 }

@@ -3,6 +3,8 @@ package fr.pizzeria.ihm.menu.option;
 import java.util.Scanner;
 
 import fr.pizzeria.dao.IPizzaDao;
+import fr.pizzeria.exception.DaoException;
+import fr.pizzeria.exception.DeletePizzaException;
 
 /**
  * Instanciation de la classe abstraite OptionMenu.
@@ -28,7 +30,12 @@ public class SupprimerPizzaOptionMenu extends OptionMenu {
 		System.out.println(SUPPRIMER_PIZZA_LIBELLE);
 		System.out.println("Veuillez saisir le code");
 		String codePizza = sc.next();
-		pizzaDao.deletePizza(codePizza);
+		
+		try {
+			pizzaDao.deletePizza(codePizza);
+		} catch (DaoException e) {
+			System.err.println("Echec suppression pizza");
+		}
 		
 		return true;
 	}

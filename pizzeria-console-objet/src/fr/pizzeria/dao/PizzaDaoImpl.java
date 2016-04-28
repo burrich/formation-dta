@@ -1,5 +1,9 @@
 package fr.pizzeria.dao;
 
+import fr.pizzeria.exception.DaoException;
+import fr.pizzeria.exception.DeletePizzaException;
+import fr.pizzeria.exception.SavePizzaException;
+import fr.pizzeria.exception.UpdatePizzaException;
 import fr.pizzeria.model.Pizza;
 
 /**
@@ -34,39 +38,49 @@ public class PizzaDaoImpl implements IPizzaDao {
 	}
 
 	@Override
-	public boolean savePizza(Pizza newPizza) {
-		pizzas[Pizza.nbPizzas] = newPizza;
-		Pizza.nbPizzas++;
+	public boolean savePizza(Pizza newPizza) throws DaoException {
+		boolean placeTrouve = false;
+		int index = 0;
 		
-		return true;
-	}
-
-	@Override
-	public boolean updatePizza(String codePizza, Pizza updatePizza) {
-		ResultatRecherche resultatRecherche = rechercherPizza(pizzas, codePizza);
-		if (resultatRecherche.pizzaTrouve) {
-			pizzas[resultatRecherche.indexPizzaTrouve].setCode(updatePizza.getCode());
-			pizzas[resultatRecherche.indexPizzaTrouve].setNom(updatePizza.getNom());
-			pizzas[resultatRecherche.indexPizzaTrouve].setPrix(updatePizza.getPrix());
-			
-			return true;
-		} else {
-			return false;
+		while (!placeTrouve && index < pizzas.length) {
+			placeTrouve = pizzas[index] == null;
+			if(!placeTrouve) {
+				index++;
+			}
 		}
+
+		if (placeTrouve) {
+			pizzas[index] = newPizza;
+			Pizza.nbPizzas++;
+		} else {
+			throw new SavePizzaException();
+		}
+		
+		return placeTrouve;
 	}
 
+	@Override
+	public boolean updatePizza(String codePizza, Pizza updatePizza) throws DaoException {
+		ResultatRecherche resultatRecherche = rechercherPizza(codePizza);
+		if (resultatRecherche.pizzaTrouve) {
+			pizzas[resultatRecherche.indexPizzaTrouve] = updatePizza;
+		} else {
+			throw new UpdatePizzaException();
+		}
+		
+		return resultatRecherche.pizzaTrouve;
+	}
 
 	@Override
-	public boolean deletePizza(String codePizza) {
-		ResultatRecherche resultatRecherche = rechercherPizza(pizzas, codePizza);
+	public boolean deletePizza(String codePizza) throws DaoException {
+		ResultatRecherche resultatRecherche = rechercherPizza(codePizza);
 		if (resultatRecherche.pizzaTrouve) {
 			pizzas[resultatRecherche.indexPizzaTrouve] = null;
 			Pizza.nbPizzas--;
-			
-			return true;
 		} else {
-			return false;
+			throw new DeletePizzaException();
 		}
+		return resultatRecherche.pizzaTrouve;
 	}
 	
 	/**
@@ -77,7 +91,7 @@ public class PizzaDaoImpl implements IPizzaDao {
 	 * @param codePizza Code la pizza
 	 * @return objet ResultatRecherche
 	 */
-	private ResultatRecherche rechercherPizza(Pizza[] pizzas, String codePizza) {
+	private ResultatRecherche rechercherPizza(String codePizza) {
 		boolean pizzaTrouve = false;
 		int indexPizzaTrouve = 0;
 		

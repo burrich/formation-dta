@@ -7,10 +7,10 @@ package fr.pizzeria.model;
 public class Pizza {
 	public static int nbPizzas = 0;
 	
-	public int id;
-	public String code;
-	public String nom;
-	public double prix;
+	private int id;
+	private String code;
+	private String nom;
+	private double prix;
 	
 	/**
 	 * Constructeur par défaut.

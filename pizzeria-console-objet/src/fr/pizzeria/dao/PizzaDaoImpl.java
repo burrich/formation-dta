@@ -22,6 +22,7 @@ public class PizzaDaoImpl implements IPizzaDao {
 		pizzas[5] = new Pizza(5, "SAV", "La savoyarde", 13.00);
 		pizzas[6] = new Pizza(6, "ORI", "L'orientale", 13.50);
 		pizzas[7] = new Pizza(7, "IND", "L'indienne", 14.00);
+		Pizza.nbPizzas = 8;
 	}
 	
 	@Override

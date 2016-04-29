@@ -5,9 +5,8 @@ package fr.pizzeria.model;
  * @author Nicolas
  */
 public class Pizza {
-	public static int nbPizzas = 0;
+	public static int nbPizzas = 0; // TODO: a supprimer
 	
-	private int id;
 	private String code;
 	private String nom;
 	private double prix;
@@ -26,27 +25,12 @@ public class Pizza {
 	 * @param nom
 	 * @param prix
 	 */
-	public Pizza(int id, String code, String nom, double prix) {
-		this.id = id;
+	public Pizza(String code, String nom, double prix) {
 		this.code = code;
 		this.nom = nom;
 		this.prix = prix;
 	}
 	
-	/**
-	 * @return id
-	 */
-	public int getId() {
-		return id;
-	}
-
-	/**
-	 * @param id à modifier
-	 */
-	public void setId(int id) {
-		this.id = id;
-	}
-
 	/**
 	 * @return code
 	 */

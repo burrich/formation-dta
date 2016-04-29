@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 import fr.pizzeria.dao.IPizzaDao;
 import fr.pizzeria.exception.DaoException;
-import fr.pizzeria.exception.SavePizzaException;
+import fr.pizzeria.model.CategoriePizza;
 import fr.pizzeria.model.Pizza;
 
 /**
@@ -28,18 +28,32 @@ public class NouvellePizzaOptionMenu extends OptionMenu {
 	
 	@Override
 	public boolean execute() {
+		Pizza newPizza = new Pizza();
+		
+		// TODO: InputMissmatch exception
 		System.out.println(AJOUT_PIZZA_LIBELLE);
 		System.out.println("Veuillez saisir le code");
-		String code = this.sc.next();
+		newPizza.setCode(this.sc.next());
 		System.out.println("Veuillez saisir le nom (sans espace)");
-		String nom = this.sc.next();
+		newPizza.setNom(this.sc.next());
 		System.out.println("Veuillez saisir le prix");
-		double prix = this.sc.nextDouble();
+		newPizza.setPrix(this.sc.nextDouble());
 		
-		Pizza newPizza = new Pizza();
-		newPizza.setCode(code);
-		newPizza.setNom(nom);
-		newPizza.setPrix(prix);
+		boolean demandeCategorie = true;
+		while (demandeCategorie) {
+			System.out.println("Veuillez saisir la catégorie");
+			CategoriePizza[] categoriesPizza = CategoriePizza.values();
+			for (CategoriePizza c : categoriesPizza) {
+				System.out.println(c.ordinal() + " -> " + c.getLibelle());
+			}
+			int saisieCategorie = this.sc.nextInt();
+			if (saisieCategorie >= 0 && saisieCategorie < categoriesPizza.length) {
+				newPizza.setCategorie(categoriesPizza[saisieCategorie]);
+				demandeCategorie = false;
+			} else {
+				System.out.println("Catégorie incorrecte");
+			}
+		}
 		
 		try {
 			pizzaDao.savePizza(newPizza);

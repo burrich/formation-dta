@@ -10,12 +10,13 @@ public class Pizza {
 	private String code;
 	private String nom;
 	private double prix;
+	private CategoriePizza categorie;
 	
 	/**
 	 * Constructeur par défaut.
 	 */
 	public Pizza() {
-		
+		// TODO Auto-generated constructor stub
 	}
 	
 	/**
@@ -25,12 +26,18 @@ public class Pizza {
 	 * @param nom
 	 * @param prix
 	 */
-	public Pizza(String code, String nom, double prix) {
+	public Pizza(String code, String nom, double prix, CategoriePizza categorie) {
 		this.code = code;
 		this.nom = nom;
 		this.prix = prix;
+		this.categorie = categorie;
 	}
 	
+	@Override
+	public String toString() {
+		return this.code + " -> " + this.nom + " (" + this.prix + "€) - " + this.categorie.getLibelle();
+	}
+
 	/**
 	 * @return code
 	 */
@@ -71,5 +78,19 @@ public class Pizza {
 	 */
 	public void setPrix(double prix) {
 		this.prix = prix;
+	}
+
+	/**
+	 * @return categorie
+	 */
+	public CategoriePizza getCategorie() {
+		return categorie;
+	}
+
+	/**
+	 * @param categorie à modifier
+	 */
+	public void setCategorie(CategoriePizza categorie) {
+		this.categorie = categorie;
 	}
 }

@@ -3,6 +3,8 @@ package com.bankonet.test;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import com.bankonet.CreditException;
+import com.bankonet.DebitException;
 import com.bankonet.model.BankonetException;
 import com.bankonet.model.CompteCourant;
 
@@ -60,7 +62,7 @@ public class TestCompteCourant {
 					myCC.debitAutorise(1000);
 					System.out.println("OK !");
 					
-				} catch (BankonetException e) {
+				} catch (DebitException e) {
 					e.printStackTrace();
 				}
 			    
@@ -70,7 +72,7 @@ public class TestCompteCourant {
 					myCC.creditAutorise(500);
 					System.out.println("OK !");
 					
-				} catch (BankonetException e) {
+				} catch (CreditException e) {
 					e.printStackTrace();
 				}
 			    

@@ -36,6 +36,12 @@ public class TestClient {
 		listClient.add(new Client(2,"TOTO", "Titi", listCompteCourant2, listCompteEpargne2));
 		listClient.add(new Client(3,"DURAND", "Jacques", listCompteCourant3,new ArrayList<>()));
 		
+		// Test virement
+		Client client2 = listClient.get(1);
+		CompteCourant client2CptC = (CompteCourant) client2.getComptesCourants().get(0);
+		CompteEpargne client2CptE = (CompteEpargne) client2.getComptesEpargne().get(0);
+		client2CptC.effectuerVirement(client2CptE, 1000);
+		
 		 for(Client myClient : listClient) {
 			 	System.out.println();
 			    System.out.println(myClient.toString());
@@ -49,12 +55,6 @@ public class TestClient {
 //			    }
 			    
 		 }
-		 
-		 
-		 
-		 
-		
-			
 	 }
 	 
 	 

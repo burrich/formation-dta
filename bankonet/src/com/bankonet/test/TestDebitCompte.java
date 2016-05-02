@@ -3,6 +3,7 @@ package com.bankonet.test;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import com.bankonet.DebitException;
 import com.bankonet.model.BankonetException;
 import com.bankonet.model.CompteCourant;
 
@@ -16,7 +17,7 @@ public class TestDebitCompte {
 			if (c1.debitAutorise(500)) {
 				 c1.debiter(500);
 			 }
-		} catch (BankonetException e) {
+		} catch (DebitException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

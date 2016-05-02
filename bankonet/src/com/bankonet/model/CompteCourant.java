@@ -1,5 +1,8 @@
 package com.bankonet.model;
 
+import com.bankonet.CreditException;
+import com.bankonet.DebitException;
+
 /**
  * @author fguibert
  */
@@ -18,17 +21,17 @@ public final class CompteCourant extends Compte {
     /**
      * Le credit d'un compte courant est toujours autorise
      */
-    public boolean creditAutorise(float montant) throws BankonetException {
+    public boolean creditAutorise(float montant) throws CreditException {
     	//super.crediter(montant);
         return true;
     }
 
-    public boolean debitAutorise(float montant) throws BankonetException {
+    public boolean debitAutorise(float montant) throws DebitException {
         if (this.getSolde() + this.getDecouvertAutorise() >= montant) {
         	//debiter(montant);
             return true;
         } else {
-            throw new BankonetException("Montant trop eleve : le solde du compte courant "+ this.getIdentifiant() + " ne peut descendre en dessous du decouvert autorise" );
+            throw new DebitException("Montant trop eleve : le solde du compte courant "+ this.getIdentifiant() + " ne peut descendre en dessous du decouvert autorise" );
         }
     }
     
@@ -38,7 +41,7 @@ public final class CompteCourant extends Compte {
 			if (debitAutorise(montant)) {
 				super.debiter(montant);
 			}
-		} catch (BankonetException e) {
+		} catch (DebitException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -50,7 +53,7 @@ public final class CompteCourant extends Compte {
 			if (creditAutorise(montant)) {
 				super.crediter(montant);
 			}
-		} catch (BankonetException e) {
+		} catch (CreditException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

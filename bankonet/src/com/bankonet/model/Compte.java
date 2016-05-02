@@ -1,5 +1,7 @@
 package com.bankonet.model;
 
+import com.bankonet.CreditException;
+import com.bankonet.DebitException;
 import com.bankonet.ICompteStat;
 
 /**
@@ -31,9 +33,14 @@ public abstract class Compte implements ICompteStat {
 		this.setSolde( this.getSolde() - montant);
 	}
 	
-	public abstract boolean creditAutorise(float montant) throws BankonetException;
+	public void effectuerVirement(Compte compte, float montant) {
+		this.debiter(montant);
+		compte.crediter(montant);
+	}
+	
+	public abstract boolean creditAutorise(float montant) throws CreditException;
 
-	public abstract boolean debitAutorise(float montant) throws BankonetException;
+	public abstract boolean debitAutorise(float montant) throws DebitException;
 
 	public String getLibelle() {
 		return libelle;

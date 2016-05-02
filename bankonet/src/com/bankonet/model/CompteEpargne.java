@@ -1,5 +1,7 @@
 package com.bankonet.model;
 
+import com.bankonet.CreditException;
+import com.bankonet.DebitException;
 
 /**
  * @author fguibert
@@ -29,20 +31,44 @@ public final class CompteEpargne extends Compte {
      * Le montant ne doit pas etre superieur au plafond de credit autorise
      * en une fois
      */
-    public boolean creditAutorise(float montant) throws BankonetException {
+    public boolean creditAutorise(float montant) throws CreditException {
         if (montant+getSolde() < getPlafond()) {
             return true;
         } else {
-            throw new BankonetException("Le compte epargne "+ this.getIdentifiant() + " a pour plafond de credit : " + this.getPlafond());
+            throw new CreditException("Le compte epargne "+ this.getIdentifiant() + " a pour plafond de credit : " + this.getPlafond());
         }
     }
 
-    public boolean debitAutorise(float montant) throws BankonetException {
+    public boolean debitAutorise(float montant) throws DebitException {
         if (getSolde() - montant >= 0) {
             return true;
         } else {
-            throw new BankonetException("Montant trop eleve : le solde du compte epargne "+ this.getIdentifiant() + " ne peut etre negatif" );
+            throw new DebitException("Montant trop eleve : le solde du compte epargne "+ this.getIdentifiant() + " ne peut etre negatif" );
         }
+    }
+    
+    @Override
+    public void debiter(float montant) {
+    	try {
+			if (debitAutorise(montant)) {
+				super.debiter(montant);
+			}
+		} catch (DebitException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    }
+    
+    @Override
+    public void crediter(float montant) {
+    	try {
+			if (creditAutorise(montant)) {
+				super.crediter(montant);
+			}
+		} catch (CreditException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
 
 

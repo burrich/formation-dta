@@ -1,10 +1,11 @@
 package com.bankonet.model;
 
+import com.bankonet.ICompteStat;
 
 /**
  * @author fguibert
  */
-public abstract class Compte {
+public abstract class Compte implements ICompteStat {
 	private String libelle;
 	private int identifiant;
 	protected float solde;
@@ -30,30 +31,10 @@ public abstract class Compte {
 		this.setSolde( this.getSolde() - montant);
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	public abstract boolean creditAutorise(float montant) throws BankonetException;
 
 	public abstract boolean debitAutorise(float montant) throws BankonetException;
 
-	
-	
-	
-	
 	public String getLibelle() {
 		return libelle;
 	}

@@ -6,7 +6,6 @@ package com.bankonet.model;
 public final class CompteCourant extends Compte {
     private float decouvertAutorise;
     public static int nombreComptesCourants = 0;
-
  
     public CompteCourant(int id, String libelle, float solde, float decouvertAutorise) {
 
@@ -32,10 +31,6 @@ public final class CompteCourant extends Compte {
             throw new BankonetException("Montant trop eleve : le solde du compte courant "+ this.getIdentifiant() + " ne peut descendre en dessous du decouvert autorise" );
         }
     }
-
-    
-   
-    
     
     @Override
     public void debiter(float montant) {

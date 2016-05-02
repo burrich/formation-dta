@@ -12,6 +12,7 @@ public class TestAutomate {
 			moySoldes += iCompteStat.getSolde();
 		}
 		
+		moySoldes /= comptes.length;
 		System.out.println("Moyenne des soldes des comptes : " + moySoldes);
 	}
 

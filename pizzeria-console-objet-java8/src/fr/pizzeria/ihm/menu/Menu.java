@@ -7,6 +7,8 @@ import java.util.Scanner;
 import java.util.TreeMap;
 
 import fr.pizzeria.dao.IPizzaDao;
+import fr.pizzeria.ihm.menu.option.AfficherPizzaTarifEleveOptionMenu;
+import fr.pizzeria.ihm.menu.option.ListerPizzasGroupesParCategorieOptionMenu;
 import fr.pizzeria.ihm.menu.option.ListerPizzasOptionMenu;
 import fr.pizzeria.ihm.menu.option.MajPizzaOptionMenu;
 import fr.pizzeria.ihm.menu.option.NouvellePizzaOptionMenu;
@@ -43,6 +45,8 @@ public class Menu {
 		options.put(2, new NouvellePizzaOptionMenu(pizzaDao, this.sc));
 		options.put(3, new MajPizzaOptionMenu(pizzaDao, this.sc));
 		options.put(4, new SupprimerPizzaOptionMenu(pizzaDao, this.sc));
+		options.put(5, new ListerPizzasGroupesParCategorieOptionMenu(pizzaDao));
+		options.put(6, new AfficherPizzaTarifEleveOptionMenu(pizzaDao));
 		options.put(99, new QuitterOptionMenu());
 	}
 

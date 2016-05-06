@@ -17,8 +17,9 @@ public interface IPizzaDao {
 	/**
 	 * Retourne la liste des pizza
 	 * @return Liste de pizza
+	 * @throws DaoException 
 	 */
-	List<Pizza> findAllPizzas();
+	List<Pizza> findAllPizzas() throws DaoException;
 	
 	/**
 	 * Ajoute la pizza dans le tableau pizzas[].
@@ -41,4 +42,6 @@ public interface IPizzaDao {
 	 * @return Résultat de l'opération
 	 */
 	boolean deletePizza(String codePizza) throws DaoException;
+	
+	boolean stockerPizza(Pizza pizza);
 }

@@ -1,5 +1,6 @@
 package fr.pizzeria.dao;
 
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -7,6 +8,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import fr.pizzeria.exception.DaoException;
 import fr.pizzeria.exception.DeletePizzaException;
@@ -16,18 +19,20 @@ import fr.pizzeria.model.CategoriePizza;
 import fr.pizzeria.model.Pizza;
 
 /**
- * Implémentation de l'interface IPizzaDao.
+ * Implï¿½mentation de l'interface IPizzaDao.
  * @see IPizzaDao
  * @author Nicolas
  */
-public class PizzaDaoImpl implements IPizzaDao {
+public class PizzaDaoFichierImpl implements IPizzaDao {
+	private static final String REPERTOIRE_DATA = "data";
+	
 	private Map<String, Pizza> pizzas = new HashMap<>();
 	
 	/**
 	 * Initialisation de la map pizzas.
 	 */
-	public PizzaDaoImpl() {
-		pizzas.put("PEP", new Pizza("PEP", "Pépéroni", 12.50, CategoriePizza.VIANDE));
+	public PizzaDaoFichierImpl() {
+		pizzas.put("PEP", new Pizza("PEP", "Pï¿½pï¿½roni", 12.50, CategoriePizza.VIANDE));
 		pizzas.put("MAR", new Pizza("MAR", "Margherita", 14.50, CategoriePizza.SANS_VIANDE));
 		pizzas.put("REIN", new Pizza("REIN", "La Reine", 11.50, CategoriePizza.VIANDE));
 		pizzas.put("FRO", new Pizza("FRO", "La 4 fromages", 12.00, CategoriePizza.SANS_VIANDE));
@@ -38,8 +43,33 @@ public class PizzaDaoImpl implements IPizzaDao {
 	}
 	
 	@Override
-	public List<Pizza> findAllPizzas() {
-		return new ArrayList<Pizza>(pizzas.values());
+	public List<Pizza> findAllPizzas() throws DaoException {
+		try {
+			return Files.list(Paths.get(REPERTOIRE_DATA))
+				.map(path -> {
+					Pizza p = new Pizza();
+					
+					String code = path.getFileName().toString().replaceAll(".txt", "");
+					p.setCode(code);
+					
+					try {
+						String lignes = Files.readAllLines(path).get(0);
+						String[] ligneTab = lignes.split(";");
+						p.setNom(ligneTab[0]);
+						p.setPrix(Double.valueOf(ligneTab[1]));
+						p.setCategorie(CategoriePizza.valueOf(ligneTab[2]));
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					
+					return p;
+				})
+				.collect(Collectors.toList());
+			
+		} catch (IOException e) {
+			throw new DaoException(e);
+		}
 	}
 
 	@Override
@@ -47,7 +77,7 @@ public class PizzaDaoImpl implements IPizzaDao {
 		String codePizza = newPizza.getCode();
 		
 		if (pizzas.containsKey(codePizza)) {
-			throw new SavePizzaException("code pizza déjà présent");
+			throw new SavePizzaException("code pizza dï¿½jï¿½ prï¿½sent");
 		}
 		
 		pizzas.put(codePizza, newPizza);
@@ -59,7 +89,7 @@ public class PizzaDaoImpl implements IPizzaDao {
 		if (pizzas.containsKey(codePizza)) {
 			pizzas.put(codePizza, updatePizza);
 		} else {
-			throw new UpdatePizzaException("code pizza non trouvé");
+			throw new UpdatePizzaException("code pizza non trouvï¿½");
 		}
 		
 		return true;
@@ -70,7 +100,7 @@ public class PizzaDaoImpl implements IPizzaDao {
 		if (pizzas.containsKey(codePizza)) {
 			pizzas.remove(codePizza);
 		} else {
-			throw new DeletePizzaException("code pizza non trouvé");
+			throw new DeletePizzaException("code pizza non trouvï¿½");
 		}
 		
 		return true;

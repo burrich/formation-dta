@@ -42,7 +42,7 @@ public class NouvellePizzaOptionMenu extends OptionMenu {
 		
 		boolean demandeCategorie = true;
 		while (demandeCategorie) {
-			System.out.println("Veuillez saisir la catégorie");
+			System.out.println("Veuillez saisir la catÃ©gorie");
 			CategoriePizza[] categoriesPizza = CategoriePizza.values();
 			
 			Arrays.asList(categoriesPizza).stream()
@@ -53,14 +53,14 @@ public class NouvellePizzaOptionMenu extends OptionMenu {
 				newPizza.setCategorie(categoriesPizza[saisieCategorie]);
 				demandeCategorie = false;
 			} else {
-				System.out.println("Catégorie incorrecte");
+				System.out.println("CatÃ©gorie incorrecte");
 			}
 		}
 		
 		try {
 			pizzaDao.savePizza(newPizza);
 		} catch (DaoException e) {
-			System.err.println("Echec création de pizza");
+			System.err.println("Echec crÃ©ation de pizza");
 		}
 		
 		return true;

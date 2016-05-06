@@ -34,13 +34,13 @@ public class PizzeriaAdminConsoleApp {
 			case 1:
 				System.out.println("Liste des pizzas");
 				
-				Arrays.asList(pizzas).stream()
-				.filter(pizza -> pizza[0] != null)
-				.forEach(pizza -> {
-					System.out.print(pizza[0] + " -> ");
-					System.out.print(pizza[1] + " (");
-					System.out.println(pizza[2] + "€)");
-				});
+				for (int i = 0; i < pizzas.length; i++) {
+					if (pizzas[i][0] != null) {
+						System.out.print(pizzas[i][0] + " -> ");
+						System.out.print(pizzas[i][1] + " (");
+						System.out.println(pizzas[i][2] + "€)");
+					}
+				}
 				
 				System.out.print("\n");
 				break;
@@ -61,13 +61,13 @@ public class PizzeriaAdminConsoleApp {
 			case 3:
 				System.out.println("Mise à jour d'une pizza");
 				
-				Arrays.asList(pizzas).stream()
-					.filter(pizza -> pizza[0] != null)
-					.forEach(pizza -> {
-						System.out.print(pizza[0] + " -> ");
-						System.out.print(pizza[1] + " (");
-						System.out.println(pizza[2] + "€)");
-					});
+				for (int i = 0; i < pizzas.length; i++) {
+					if (pizzas[i][0] != null) {
+						System.out.print(pizzas[i][0] + " -> ");
+						System.out.print(pizzas[i][1] + " (");
+						System.out.println(pizzas[i][2] + "€)");
+					}
+				}
 				
 				System.out.println("Veuillez choisir la pizza à modifier");
 				System.out.println("(99 pour abandonner)");
@@ -90,13 +90,13 @@ public class PizzeriaAdminConsoleApp {
 			case 4:
 				System.out.println("Suppression d'une pizza");
 				
-				Arrays.asList(pizzas).stream()
-				.filter(pizza -> pizza[0] != null)
-				.forEach(pizza -> {
-					System.out.print(pizza[0] + " -> ");
-					System.out.print(pizza[1] + " (");
-					System.out.println(pizza[2] + "€)");
-				});
+				for (int i = 0; i < pizzas.length; i++) {
+					if (pizzas[i][0] != null) {
+						System.out.print(pizzas[i][0] + " -> ");
+						System.out.print(pizzas[i][1] + " (");
+						System.out.println(pizzas[i][2] + "€)");
+					}
+				}
 				
 				System.out.println("Veuillez choisir la pizza à suprrimer");
 				System.out.println("(99 pour abandonner)");

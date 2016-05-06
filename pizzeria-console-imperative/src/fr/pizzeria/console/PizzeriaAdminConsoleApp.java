@@ -1,5 +1,6 @@
 package fr.pizzeria.console;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class PizzeriaAdminConsoleApp {
@@ -32,13 +33,15 @@ public class PizzeriaAdminConsoleApp {
 			switch(choice) {
 			case 1:
 				System.out.println("Liste des pizzas");
-				for (int i = 0; i < pizzas.length; i++) {
-					if (pizzas[i][0] != null) {
-						System.out.print(pizzas[i][0] + " -> ");
-						System.out.print(pizzas[i][1] + " (");
-						System.out.println(pizzas[i][2] + "€)");
-					}
-				}
+				
+				Arrays.asList(pizzas).stream()
+				.filter(pizza -> pizza[0] != null)
+				.forEach(pizza -> {
+					System.out.print(pizza[0] + " -> ");
+					System.out.print(pizza[1] + " (");
+					System.out.println(pizza[2] + "€)");
+				});
+				
 				System.out.print("\n");
 				break;
 			case 2:
@@ -57,13 +60,15 @@ public class PizzeriaAdminConsoleApp {
 				break;
 			case 3:
 				System.out.println("Mise à jour d'une pizza");
-				for (int i = 0; i < pizzas.length; i++) {
-					if (pizzas[i][0] != null) {
-						System.out.print(pizzas[i][0] + " -> ");
-						System.out.print(pizzas[i][1] + " (");
-						System.out.println(pizzas[i][2] + "€)");
-					}
-				}
+				
+				Arrays.asList(pizzas).stream()
+					.filter(pizza -> pizza[0] != null)
+					.forEach(pizza -> {
+						System.out.print(pizza[0] + " -> ");
+						System.out.print(pizza[1] + " (");
+						System.out.println(pizza[2] + "€)");
+					});
+				
 				System.out.println("Veuillez choisir la pizza à modifier");
 				System.out.println("(99 pour abandonner)");
 				
@@ -84,13 +89,15 @@ public class PizzeriaAdminConsoleApp {
 				break;
 			case 4:
 				System.out.println("Suppression d'une pizza");
-				for (int i = 0; i < pizzas.length; i++) {
-					if (pizzas[i][0] != null) {
-						System.out.print(pizzas[i][0] + " -> ");
-						System.out.print(pizzas[i][1] + " (");
-						System.out.println(pizzas[i][2] + "€)");
-					}
-				}
+				
+				Arrays.asList(pizzas).stream()
+				.filter(pizza -> pizza[0] != null)
+				.forEach(pizza -> {
+					System.out.print(pizza[0] + " -> ");
+					System.out.print(pizza[1] + " (");
+					System.out.println(pizza[2] + "€)");
+				});
+				
 				System.out.println("Veuillez choisir la pizza à suprrimer");
 				System.out.println("(99 pour abandonner)");
 				

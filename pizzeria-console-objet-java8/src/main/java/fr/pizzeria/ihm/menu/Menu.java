@@ -17,7 +17,7 @@ import fr.pizzeria.ihm.menu.option.QuitterOptionMenu;
 import fr.pizzeria.ihm.menu.option.SupprimerPizzaOptionMenu;
 
 /**
- * Représente le menu console.
+ * ReprÃ©sente le menu console.
  * @author Nicolas
  */
 public class Menu {

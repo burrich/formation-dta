@@ -9,7 +9,7 @@ public class QuitterOptionMenu extends OptionMenu {
 	private static final String QUITTER_LIBELLE = "Quitter";
 
 	/**
-	 * Constructeur par défaut.
+	 * Constructeur par dÃ©faut.
 	 */
 	public QuitterOptionMenu() {
 		super(QUITTER_LIBELLE);

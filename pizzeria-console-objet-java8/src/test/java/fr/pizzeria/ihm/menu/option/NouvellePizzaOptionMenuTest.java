@@ -54,10 +54,10 @@ public class NouvellePizzaOptionMenuTest {
 		assertTrue(12 == pizza.getPrix());
 		assertEquals(CategoriePizza.VIANDE, pizza.getCategorie());
 		
-		String outAttendu = Files.lines(Paths.get("test/fr/pizzeria/ihm/menu/option/resultatNouvellePizza.txt")).collect(Collectors.joining(System.lineSeparator()));
+		String outAttendu = Files.lines(Paths.get("src/test/resources/resultatNouvellePizza.txt")).collect(Collectors.joining(System.lineSeparator()));
 		outAttendu += System.lineSeparator();
-		String s = systemOutRule.getLog();
-		assertEquals(outAttendu, systemOutRule.getLog());
+		String log = systemOutRule.getLog();
+		assertEquals(outAttendu, log);
 	}
 
 }

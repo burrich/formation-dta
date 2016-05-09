@@ -44,7 +44,7 @@ public class MajPizzaOptionMenu extends OptionMenu {
 		try {
 			pizzaDao.updatePizza(code, updatePizza);
 		} catch (DaoException e) {
-			System.err.println("Echec mise à jour pizza");
+			System.err.println("Echec mise Ã  jour pizza");
 		}
 		
 		return true;

@@ -3,7 +3,7 @@ package fr.pizzeria.ihm.menu.option;
 import fr.pizzeria.dao.IPizzaDao;
 
 /**
- * Classe mère abstraite des options menu.
+ * Classe mÃ¨re abstraite des options menu.
  * @author Nicolas
  */
 public abstract class OptionMenu {
@@ -28,7 +28,7 @@ public abstract class OptionMenu {
 	
 	/**
 	 * Execute l'action de l'option.
-	 * @return Résultat de l'exécution
+	 * @return RÃ©sultat de l'exÃ©cution
 	 */
 	public abstract boolean execute();
 
@@ -39,7 +39,7 @@ public abstract class OptionMenu {
 		return libelle;
 	}
 	/**
-	 * @param libelle à modifier
+	 * @param libelle Ã  modifier
 	 */
 	public void setLibelle(String libelle) {
 		this.libelle = libelle;

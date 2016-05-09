@@ -1,8 +1,5 @@
 package fr.pizzeria.dao;
 
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -16,7 +13,7 @@ import fr.pizzeria.model.CategoriePizza;
 import fr.pizzeria.model.Pizza;
 
 /**
- * Implémentation de l'interface IPizzaDao.
+ * Implï¿½mentation de l'interface IPizzaDao.
  * @see IPizzaDao
  * @author Nicolas
  */
@@ -27,7 +24,7 @@ public class PizzaDaoImpl implements IPizzaDao {
 	 * Initialisation de la map pizzas.
 	 */
 	public PizzaDaoImpl() {
-		pizzas.put("PEP", new Pizza("PEP", "Pépéroni", 12.50, CategoriePizza.VIANDE));
+		pizzas.put("PEP", new Pizza("PEP", "PÃ©pÃ©roni", 12.50, CategoriePizza.VIANDE));
 		pizzas.put("MAR", new Pizza("MAR", "Margherita", 14.50, CategoriePizza.SANS_VIANDE));
 		pizzas.put("REIN", new Pizza("REIN", "La Reine", 11.50, CategoriePizza.VIANDE));
 		pizzas.put("FRO", new Pizza("FRO", "La 4 fromages", 12.00, CategoriePizza.SANS_VIANDE));
@@ -47,7 +44,7 @@ public class PizzaDaoImpl implements IPizzaDao {
 		String codePizza = newPizza.getCode();
 		
 		if (pizzas.containsKey(codePizza)) {
-			throw new SavePizzaException("code pizza déjà présent");
+			throw new SavePizzaException("code pizza dÃ©jÃ  prÃ©sent");
 		}
 		
 		pizzas.put(codePizza, newPizza);
@@ -55,11 +52,15 @@ public class PizzaDaoImpl implements IPizzaDao {
 	}
 
 	@Override
-	public boolean updatePizza(String codePizza, Pizza updatePizza) throws DaoException {
+	public boolean updatePizza(String codePizza, Pizza updatePizza) throws DaoException, NullPointerException {
+		if (updatePizza == null) {
+			throw new NullPointerException();
+		}
+		
 		if (pizzas.containsKey(codePizza)) {
 			pizzas.put(codePizza, updatePizza);
 		} else {
-			throw new UpdatePizzaException("code pizza non trouvé");
+			throw new UpdatePizzaException("code pizza non trouvÃ©");
 		}
 		
 		return true;
@@ -70,20 +71,9 @@ public class PizzaDaoImpl implements IPizzaDao {
 		if (pizzas.containsKey(codePizza)) {
 			pizzas.remove(codePizza);
 		} else {
-			throw new DeletePizzaException("code pizza non trouvé");
+			throw new DeletePizzaException("code pizza non trouvÃ©");
 		}
 		
 		return true;
-	}
-
-	@Override
-	public boolean stockerPizza(Pizza pizza) {
-//		Path pizzaFilePath = Paths.get(System.getProperty("user.dir") + "\\data\\" + pizza.getCode() + ".txt");
-//		
-//		if (Files.notExists(pizzaFilePath)) {
-//			
-//		}
-//		
-		return false;
 	}
 }

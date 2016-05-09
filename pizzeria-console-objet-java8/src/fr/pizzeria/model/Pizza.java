@@ -19,14 +19,14 @@ public class Pizza {
 	private CategoriePizza categorie;
 	
 	/**
-	 * Constructeur par défaut.
+	 * Constructeur par dï¿½faut.
 	 */
 	public Pizza() {
 		// TODO Auto-generated constructor stub
 	}
 	
 	/**
-	 * Constructeur avec paramètres.
+	 * Constructeur avec paramï¿½tres.
 	 * @param id
 	 * @param code
 	 * @param nom
@@ -66,7 +66,7 @@ public class Pizza {
 	}
 
 	/**
-	 * @param code à modifier
+	 * @param code ï¿½ modifier
 	 */
 	public void setCode(String code) {
 		this.code = code;
@@ -80,7 +80,7 @@ public class Pizza {
 	}
 
 	/**
-	 * @param nom à modifier
+	 * @param nom ï¿½ modifier
 	 */
 	public void setNom(String nom) {
 		this.nom = nom;
@@ -94,7 +94,7 @@ public class Pizza {
 	}
 
 	/**
-	 * @param prix à modifier
+	 * @param prix ï¿½ modifier
 	 */
 	public void setPrix(double prix) {
 		this.prix = prix;
@@ -108,9 +108,46 @@ public class Pizza {
 	}
 
 	/**
-	 * @param categorie à modifier
+	 * @param categorie ï¿½ modifier
 	 */
 	public void setCategorie(CategoriePizza categorie) {
 		this.categorie = categorie;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((code == null) ? 0 : code.hashCode());
+		result = prime * result + ((nom == null) ? 0 : nom.hashCode());
+		return result;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Pizza other = (Pizza) obj;
+		if (code == null) {
+			if (other.code != null)
+				return false;
+		} else if (!code.equals(other.code))
+			return false;
+		if (nom == null) {
+			if (other.nom != null)
+				return false;
+		} else if (!nom.equals(other.nom))
+			return false;
+		return true;
 	}
 }

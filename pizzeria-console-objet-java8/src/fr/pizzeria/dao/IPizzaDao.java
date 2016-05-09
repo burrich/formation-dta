@@ -24,24 +24,22 @@ public interface IPizzaDao {
 	/**
 	 * Ajoute la pizza dans le tableau pizzas[].
 	 * @param newPizza Objec Pizza
-	 * @return Résultat de l'opération
+	 * @return Rï¿½sultat de l'opï¿½ration
 	 */
 	boolean savePizza(Pizza newPizza) throws DaoException;
 	
 	/**
-	 * Mets à jour la Pizza dans le tableau pizzas[].
+	 * Mets ï¿½ jour la Pizza dans le tableau pizzas[].
 	 * @param codePizza Code de la Pizza
 	 * @param updatePizza Objet Pizza
-	 * @return Résultat de l'opération
+	 * @return Rï¿½sultat de l'opï¿½ration
 	 */
 	boolean updatePizza(String codePizza, Pizza updatePizza) throws DaoException;
 	
 	/**
 	 * 
 	 * @param codePizza Code de la Pizza
-	 * @return Résultat de l'opération
+	 * @return Rï¿½sultat de l'opï¿½ration
 	 */
 	boolean deletePizza(String codePizza) throws DaoException;
-	
-	boolean stockerPizza(Pizza pizza);
 }

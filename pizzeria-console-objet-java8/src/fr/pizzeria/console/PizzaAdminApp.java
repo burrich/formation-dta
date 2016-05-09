@@ -22,7 +22,5 @@ public class PizzaAdminApp {
 		Menu menu = new Menu(sc, dao);
 		menu.afficher();
 		sc.close();
-		
-		dao.stockerPizza(null);
 	}
 }

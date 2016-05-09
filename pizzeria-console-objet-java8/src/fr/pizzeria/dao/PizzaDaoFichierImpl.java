@@ -105,15 +105,4 @@ public class PizzaDaoFichierImpl implements IPizzaDao {
 		
 		return true;
 	}
-
-	@Override
-	public boolean stockerPizza(Pizza pizza) {
-//		Path pizzaFilePath = Paths.get(System.getProperty("user.dir") + "\\data\\" + pizza.getCode() + ".txt");
-//		
-//		if (Files.notExists(pizzaFilePath)) {
-//			
-//		}
-//		
-		return false;
-	}
 }

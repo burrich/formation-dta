@@ -21,7 +21,7 @@ import fr.pizzeria.model.Pizza;
  * @author Nicolas
  */
 public class PizzaDaoFichierImpl implements IPizzaDao {
-	private static final String REPERTOIRE_DATA = "src/main/resources";
+	private static final String REPERTOIRE_DATA = "data";
 	
 	private Map<String, Pizza> pizzas = new HashMap<>();
 	

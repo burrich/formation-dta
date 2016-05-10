@@ -1,12 +1,12 @@
 package fr.pizzeria.console;
 
+import java.util.ResourceBundle;
 import java.util.Scanner;
 
 import fr.pizzeria.dao.IPizzaDao;
 import fr.pizzeria.dao.PizzaDaoFichierImpl;
 import fr.pizzeria.dao.PizzaDaoImpl;
 import fr.pizzeria.ihm.menu.Menu;
-import fr.pizzeria.model.Pizza;
 
 /**
  * Classe principale contenant le main.
@@ -18,14 +18,27 @@ public class PizzaAdminApp {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		Pizza p1 = new Pizza();
-		Pizza p2 = new Pizza();
-		p1.equals(p2);
-		
-		Scanner sc = new Scanner(System.in);
-		IPizzaDao dao = new PizzaDaoImpl();
-		Menu menu = new Menu(sc, dao);
-		menu.afficher();
-		sc.close();
+		ResourceBundle bundle = ResourceBundle.getBundle("application");
+		String confString = bundle.getString("dao.impl");
+		Integer daoImplConf = Integer.valueOf(confString);
+				
+		switch (daoImplConf) {
+		case 0:
+			lancerApplication(new PizzaDaoImpl());
+			break;
+		case 1:
+			lancerApplication(new PizzaDaoFichierImpl());
+			break;
+		default:
+			System.err.println("Aucune configuration Dao trouvée. Le fichier application.properties est-il correctement configuré ?");
+			break;
+		}
+	}
+	
+	private static void lancerApplication(IPizzaDao dao) {
+		try(Scanner sc = new Scanner(System.in)) {
+			Menu menu = new Menu(sc,dao);
+			menu.afficher();
+		}
 	}
 }

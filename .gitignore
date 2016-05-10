@@ -3,7 +3,8 @@
 .metadata/
 .classpath
 .log
-.projetct
+.project
 .state
 Servers/
 .settings
+/target/

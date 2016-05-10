@@ -2,13 +2,10 @@ package fr.pizzeria.dao;
 
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import fr.pizzeria.exception.DaoException;
@@ -24,7 +21,7 @@ import fr.pizzeria.model.Pizza;
  * @author Nicolas
  */
 public class PizzaDaoFichierImpl implements IPizzaDao {
-	private static final String REPERTOIRE_DATA = "data";
+	private static final String REPERTOIRE_DATA = "src/main/resources";
 	
 	private Map<String, Pizza> pizzas = new HashMap<>();
 	
@@ -32,7 +29,7 @@ public class PizzaDaoFichierImpl implements IPizzaDao {
 	 * Initialisation de la map pizzas.
 	 */
 	public PizzaDaoFichierImpl() {
-		pizzas.put("PEP", new Pizza("PEP", "P�p�roni", 12.50, CategoriePizza.VIANDE));
+		pizzas.put("PEP", new Pizza("PEP", "Pépéroni", 12.50, CategoriePizza.VIANDE));
 		pizzas.put("MAR", new Pizza("MAR", "Margherita", 14.50, CategoriePizza.SANS_VIANDE));
 		pizzas.put("REIN", new Pizza("REIN", "La Reine", 11.50, CategoriePizza.VIANDE));
 		pizzas.put("FRO", new Pizza("FRO", "La 4 fromages", 12.00, CategoriePizza.SANS_VIANDE));
@@ -77,7 +74,7 @@ public class PizzaDaoFichierImpl implements IPizzaDao {
 		String codePizza = newPizza.getCode();
 		
 		if (pizzas.containsKey(codePizza)) {
-			throw new SavePizzaException("code pizza d�j� pr�sent");
+			throw new SavePizzaException("code pizza déjà présent");
 		}
 		
 		pizzas.put(codePizza, newPizza);
@@ -89,7 +86,7 @@ public class PizzaDaoFichierImpl implements IPizzaDao {
 		if (pizzas.containsKey(codePizza)) {
 			pizzas.put(codePizza, updatePizza);
 		} else {
-			throw new UpdatePizzaException("code pizza non trouv�");
+			throw new UpdatePizzaException("code pizza non trouvé");
 		}
 		
 		return true;
@@ -100,7 +97,7 @@ public class PizzaDaoFichierImpl implements IPizzaDao {
 		if (pizzas.containsKey(codePizza)) {
 			pizzas.remove(codePizza);
 		} else {
-			throw new DeletePizzaException("code pizza non trouv�");
+			throw new DeletePizzaException("code pizza non trouvé");
 		}
 		
 		return true;

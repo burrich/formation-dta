@@ -3,6 +3,9 @@ package fr.pizzeria.model;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 
 /**
  * Classe Pizza
@@ -119,35 +122,32 @@ public class Pizza {
 	 */
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((code == null) ? 0 : code.hashCode());
-		result = prime * result + ((nom == null) ? 0 : nom.hashCode());
-		return result;
+		return new HashCodeBuilder(17, 37).append(code)
+				.toHashCode();
 	}
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#equals(java.lang.Object)
+	 * Now using EqualsBuilder from commons-lang3
 	 */
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
+	public boolean equals(Object obj) {		
+		if (obj == null) { 
+			return false; 
+		}
+		   
+		if (obj == this) { 
+			return true; 
+		}
+		   
+		if (obj.getClass() != getClass()) {
 			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Pizza other = (Pizza) obj;
-		if (code == null) {
-			if (other.code != null)
-				return false;
-		} else if (!code.equals(other.code))
-			return false;
-		if (nom == null) {
-			if (other.nom != null)
-				return false;
-		} else if (!nom.equals(other.nom))
-			return false;
-		return true;
+		}
+		
+		Pizza otherPizza = (Pizza) obj;
+		return new EqualsBuilder().appendSuper(super.equals(obj))
+				.append(code, otherPizza.code)
+				.isEquals();
 	}
+
 }

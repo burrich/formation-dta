@@ -12,7 +12,7 @@ import fr.pizzeria.ihm.menu.Menu;
  * Classe principale contenant le main.
  * @author Nicolas
  */
-public class PizzaAdminApp {
+public class PizzaAdminApp { Et je casse ! (VOLONTAIREMENT)
 	/**
 	 * Main
 	 * @param args

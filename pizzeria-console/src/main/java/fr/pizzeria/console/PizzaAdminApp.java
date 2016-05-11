@@ -14,7 +14,7 @@ import fr.pizzeria.ihm.menu.Menu;
  */
 public class PizzaAdminApp {
 	/**
-	 * Main
+	 * Main class
 	 * @param args
 	 */
 	public static void main(String[] args) {

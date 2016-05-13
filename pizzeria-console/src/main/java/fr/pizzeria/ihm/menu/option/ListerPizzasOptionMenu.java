@@ -1,6 +1,7 @@
 package fr.pizzeria.ihm.menu.option;
 
 import java.util.Comparator;
+import java.util.List;
 
 import fr.pizzeria.dao.IPizzaDao;
 import fr.pizzeria.exception.DaoException;
@@ -26,9 +27,14 @@ public class ListerPizzasOptionMenu extends OptionMenu {
 		System.out.println(LISTE_PIZZAS_LIBELLE);
 		
 		try {
-			pizzaDao.findAllPizzas()
-					.stream().sorted(Comparator.comparing(Pizza::getCode))
-					.forEach(System.out::println);
+			List<Pizza> pizzas = pizzaDao.findAllPizzas();
+			
+			if (pizzas != null) {
+				pizzas.stream().sorted(Comparator.comparing(Pizza::getCode))
+				.forEach(System.out::println);
+			} else {
+				System.out.println("Pas de pizzas.");
+			}
 		} catch (DaoException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

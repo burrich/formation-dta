@@ -1,5 +1,6 @@
 package fr.pizzeria.dao;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -26,7 +27,7 @@ public interface IPizzaDao {
 	/**
 	 * Ajoute la pizza dans le tableau pizzas[].
 	 * @param newPizza Objec Pizza
-	 * @return R�sultat de l'op�ration
+	 * @return Résultat de l'opération
 	 */
 	boolean savePizza(Pizza newPizza) throws DaoException;
 	
@@ -34,14 +35,16 @@ public interface IPizzaDao {
 	 * Mets � jour la Pizza dans le tableau pizzas[].
 	 * @param codePizza Code de la Pizza
 	 * @param updatePizza Objet Pizza
-	 * @return R�sultat de l'op�ration
+	 * @return Résultat de l'opération
 	 */
 	boolean updatePizza(String codePizza, Pizza updatePizza) throws DaoException;
 	
 	/**
 	 * 
 	 * @param codePizza Code de la Pizza
-	 * @return R�sultat de l'op�ration
+	 * @return Résultat de l'opération
 	 */
 	boolean deletePizza(String codePizza) throws DaoException;
+	
+	public boolean importDonnees();
 }

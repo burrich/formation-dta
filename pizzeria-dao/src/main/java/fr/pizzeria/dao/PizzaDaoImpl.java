@@ -1,5 +1,7 @@
 package fr.pizzeria.dao;
 
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -75,5 +77,10 @@ public class PizzaDaoImpl implements IPizzaDao {
 		}
 		
 		return true;
+	}
+
+	@Override
+	public boolean importDonnees() {
+		return false;
 	}
 }

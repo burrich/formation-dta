@@ -19,6 +19,7 @@ public class Pizza {
 	private String nom;
 	@ToString
 	private double prix;
+	@ToString
 	private CategoriePizza categorie;
 	
 	/**

@@ -6,6 +6,8 @@ import java.util.Scanner;
 import fr.pizzeria.dao.IPizzaDao;
 import fr.pizzeria.dao.PizzaDaoFichierImpl;
 import fr.pizzeria.dao.PizzaDaoImpl;
+import fr.pizzeria.dao.PizzaDaoJDBCImpl;
+import fr.pizzeria.exception.DaoException;
 import fr.pizzeria.ihm.menu.Menu;
 
 /**
@@ -28,6 +30,19 @@ public class PizzaAdminApp {
 			break;
 		case 1:
 			lancerApplication(new PizzaDaoFichierImpl());
+			break;
+		case 2:
+			ResourceBundle jdbcBundle = ResourceBundle.getBundle("jdbc");
+			String driver = jdbcBundle.getString("jdbc.driver");
+			String url = jdbcBundle.getString("jdbc.url");
+			String user = jdbcBundle.getString("jdbc.user");
+			String password = jdbcBundle.getString("jdbc.password");
+			
+			try {
+				lancerApplication(new PizzaDaoJDBCImpl(driver, url, user, password));
+			} catch (DaoException e) {
+				System.err.println("Echec lors de l'instanciation de la classe PizzaDaoJDBCImpl");
+			}
 			break;
 		default:
 			System.err.println("Aucune configuration Dao trouvée. Le fichier application.properties est-il correctement configuré ?");

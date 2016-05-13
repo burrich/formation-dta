@@ -2,11 +2,13 @@ package fr.pizzeria.dao;
 
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import fr.pizzeria.exception.DaoException;
 import fr.pizzeria.exception.DeletePizzaException;
@@ -41,9 +43,8 @@ public class PizzaDaoFichierImpl implements IPizzaDao {
 	
 	@Override
 	public List<Pizza> findAllPizzas() throws DaoException {
-		try {
-			return Files.list(Paths.get(REPERTOIRE_DATA))
-				.map(path -> {
+		try (Stream<Path> dataStream = Files.list(Paths.get(REPERTOIRE_DATA))) {
+			return dataStream.map(path -> {
 					Pizza p = new Pizza();
 					
 					String code = path.getFileName().toString().replaceAll(".txt", "");
@@ -56,7 +57,6 @@ public class PizzaDaoFichierImpl implements IPizzaDao {
 						p.setPrix(Double.valueOf(ligneTab[1]));
 						p.setCategorie(CategoriePizza.valueOf(ligneTab[2]));
 					} catch (IOException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 					

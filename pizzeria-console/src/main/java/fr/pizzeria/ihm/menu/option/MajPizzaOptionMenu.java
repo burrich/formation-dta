@@ -1,10 +1,12 @@
 package fr.pizzeria.ihm.menu.option;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 import fr.pizzeria.dao.IPizzaDao;
 import fr.pizzeria.exception.DaoException;
 import fr.pizzeria.exception.UpdatePizzaException;
+import fr.pizzeria.model.CategoriePizza;
 import fr.pizzeria.model.Pizza;
 
 /**
@@ -28,6 +30,8 @@ public class MajPizzaOptionMenu extends OptionMenu {
 	
 	@Override
 	public boolean execute() {
+		Pizza updatePizza = new Pizza();
+		
 		System.out.println(MAJ_PIZZA_LIBELLE);
 		System.out.println("Veuillez saisir le code");
 		String code = this.sc.next();
@@ -36,7 +40,23 @@ public class MajPizzaOptionMenu extends OptionMenu {
 		System.out.println("Veuillez saisir le prix");
 		double prix = this.sc.nextDouble();
 		
-		Pizza updatePizza = new Pizza();
+		boolean demandeCategorie = true;
+		while (demandeCategorie) {
+			System.out.println("Veuillez saisir la catégorie");
+			CategoriePizza[] categoriesPizza = CategoriePizza.values();
+			
+			Arrays.asList(categoriesPizza).stream()
+				.forEach(catPizza -> System.out.println(catPizza.ordinal() + " -> " + catPizza.getLibelle()));
+			
+			int saisieCategorie = this.sc.nextInt();
+			if (saisieCategorie >= 0 && saisieCategorie < categoriesPizza.length) {
+				updatePizza.setCategorie(categoriesPizza[saisieCategorie]);
+				demandeCategorie = false;
+			} else {
+				System.out.println("Catégorie incorrecte");
+			}
+		}
+		
 		updatePizza.setCode(code);
 		updatePizza.setNom(nom);
 		updatePizza.setPrix(prix);

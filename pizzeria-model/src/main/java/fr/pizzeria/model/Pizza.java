@@ -3,6 +3,16 @@ package fr.pizzeria.model;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
@@ -11,26 +21,39 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
  * Classe Pizza
  * @author Nicolas
  */
+@Entity
+@Table(name="pizza")
+@NamedQuery(name="pizza.findByCode", query="select p from Pizza p where p.code=:code")
 public class Pizza {
 	public static int nbPizzas = 0; // TODO: a supprimer
+	
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private int id;
+	
 	@ToString
+	@Column(name="reference")
 	private String code;
+	
 	@ToString(uppercase=false)
+	@Column(name="libelle")
 	private String nom;
+	
 	@ToString
 	private double prix;
+	
 	@ToString
+	@Enumerated(EnumType.STRING)
 	private CategoriePizza categorie;
 	
 	/**
-	 * Constructeur par d�faut.
+	 * Constructeur par défaut.
 	 */
 	public Pizza() {
-		// TODO Auto-generated constructor stub
 	}
 	
 	/**
-	 * Constructeur avec param�tres.
+	 * Constructeur avec paramètres.
 	 * @param id
 	 * @param code
 	 * @param nom
@@ -60,6 +83,14 @@ public class Pizza {
 						return result;
 					})
 					.collect(Collectors.joining(" "));
+	}
+	
+	
+	/**
+	 * @return the id
+	 */
+	public int getId() {
+		return id;
 	}
 
 	/**

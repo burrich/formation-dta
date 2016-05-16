@@ -49,10 +49,10 @@ public class PizzaDaoJDBCImpl implements IPizzaDao {
 		//TODO: utiliser la map
 		List<Pizza> pizzas = null;
 		
-		try (Connection connection = getConnection()) {
-			Statement statement = connection.createStatement();
-			ResultSet resultats = statement.executeQuery("SELECT * FROM pizza");
-			
+		try (Connection connection = getConnection();
+			 Statement statement = connection.createStatement();
+			 ResultSet resultats = statement.executeQuery("SELECT * FROM pizza");
+		) {
 			while (resultats.next()) {
 				if (pizzas == null) {
 					pizzas = new ArrayList<>();
@@ -61,8 +61,8 @@ public class PizzaDaoJDBCImpl implements IPizzaDao {
 				String code = resultats.getString("reference");
 				String nom = resultats.getString("libelle");
 				double prix = resultats.getDouble("prix");
-				int categorieId = resultats.getInt("categorie_id") - 1;
-				CategoriePizza categorie = CategoriePizza.values()[categorieId];
+				String categorieStr = resultats.getString("categorie");
+				CategoriePizza categorie = CategoriePizza.valueOf(categorieStr);
 				
 				pizzas.add(new Pizza(code, nom, prix, categorie));
 			}
@@ -81,87 +81,79 @@ public class PizzaDaoJDBCImpl implements IPizzaDao {
 			throw new SavePizzaException("code pizza déjà présent");
 		}
 		
-		try (Connection connection = getConnection()) {
-			String requete = 
-					"INSERT INTO pizza " +
-					"VALUES(?, ?, ?, ?, ?, ?)";
-			PreparedStatement statement = (PreparedStatement) connection.prepareStatement(requete);
-			statement.setNull(1, java.sql.Types.NULL);
-			statement.setString(2, newPizza.getNom());
-			statement.setString(3, newPizza.getCode());
-			statement.setDouble(4, newPizza.getPrix());
-			statement.setNull(5, java.sql.Types.NULL);
-			statement.setInt(6, newPizza.getCategorie().ordinal() + 1);
-			statement.executeUpdate();
-			
-			pizzas.put(codePizza, newPizza);
+		try(Connection connection = getConnection()) {
+			insertPizza(newPizza, connection);
 		} catch (SQLException e) {
-			throw new DaoException();
-		} 
+			throw new DaoException(e);
+		}
 		
 		return true;
 	}
 	
-	public boolean saveAllPizzas(List<Pizza> pizzas, int nbGroupe) throws DaoException {
-		pizzas.sort(Comparator.comparing(Pizza::getCode));
+	public boolean saveAllPizzas(List<Pizza> pizzasFichier, int nbGroupe) throws DaoException {
+		pizzasFichier.sort(Comparator.comparing(Pizza::getCode));
+		List<List<Pizza>> listPartitionnee = ListUtils.partition(pizzasFichier, nbGroupe);
 		
 		try (Connection connection = getConnection()) {
 			connection.setAutoCommit(false);
-			
-			ListUtils.partition(pizzas, nbGroupe).forEach(pizzas3 -> {
-				pizzas3.forEach(pizza -> {
-					String codePizza = pizza.getCode();
-					
-					String requete = 
-							"INSERT INTO pizza " +
-							"VALUES(?, ?, ?, ?, ?, ?)";
-					PreparedStatement statement;
-					
-					try {
-						statement = (PreparedStatement) connection.prepareStatement(requete);
-						statement.setNull(1, java.sql.Types.NULL);
-						statement.setString(2, pizza.getNom());
-						statement.setString(3, pizza.getCode());
-						statement.setDouble(4, pizza.getPrix());
-						statement.setNull(5, java.sql.Types.NULL);
-						statement.setNull(6, java.sql.Types.NULL);
-						statement.setString(7, pizza.getCategorie().name());
-						statement.executeUpdate();
-					} catch (SQLException e) {
-						try {
-							connection.rollback();
-						} catch (SQLException e1) {
-							e1.printStackTrace();
-						}
-					}
-				});
-				
-				try {
-					connection.commit();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			});
+			insertListPizzas(listPartitionnee, connection);
 		} catch (SQLException e) {
-			throw new DaoException();
+			throw new DaoException(e);
 		}
 		
 		return true;
+	}
+	
+	private void insertListPizzas(List<List<Pizza>> listListPizzas, Connection connection) throws SQLException, DaoException {
+		for (List<Pizza> list3Pizzas : listListPizzas) {
+			try {
+				for (Pizza pizza : list3Pizzas) {
+					insertPizza(pizza, connection);
+				}
+				
+				connection.commit();
+			} catch (DaoException e) {
+				throw e;
+			}
+		}
+	}
+	
+	private void insertPizza(Pizza pizza, Connection connection) throws DaoException {
+		String requete = 
+				"INSERT INTO pizza(libelle, reference, prix, categorie) " +
+				"VALUES(?, ?, ?, ?)";
+		
+		try (PreparedStatement statement = (PreparedStatement) connection.prepareStatement(requete)){
+			statement.setString(1, pizza.getNom());
+			statement.setString(2, pizza.getCode());
+			statement.setDouble(3, pizza.getPrix());
+			statement.setString(4, pizza.getCategorie().name());
+			
+			int nbLignesAffectes = statement.executeUpdate();
+			if (nbLignesAffectes == 0) {
+				throw new SavePizzaException("Aucune ligne insérée en base de données");
+			}
+		} catch (SQLException e) {
+			throw new DaoException(e);
+		}
+		
 	}
 
 	@Override
 	public boolean updatePizza(String codePizza, Pizza updatePizza) throws DaoException {
 		if (pizzas.containsKey(codePizza)) {
-			try (Connection connection = getConnection()) {
-				String requete = 
-						"UPDATE pizza " +
-						"SET libelle = ?, prix = ? " + 
-						"WHERE reference = ?";
-				PreparedStatement statement = (PreparedStatement) connection.prepareStatement(requete);
+			String requete = 
+					"UPDATE pizza " +
+					"SET libelle = ?, prix = ?, categorie = ? " + 
+					"WHERE reference = ?";
+			
+			try (Connection connection = getConnection();
+				 PreparedStatement statement = (PreparedStatement) connection.prepareStatement(requete);
+			) {
 				statement.setString(1, updatePizza.getNom());
 				statement.setDouble(2, updatePizza.getPrix());
-				statement.setString(3, codePizza);
+				statement.setString(3, updatePizza.getCategorie().name());
+				statement.setString(4, codePizza);
 				statement.executeUpdate();
 				
 				pizzas.put(codePizza, updatePizza);
@@ -178,11 +170,13 @@ public class PizzaDaoJDBCImpl implements IPizzaDao {
 	@Override
 	public boolean deletePizza(String codePizza) throws DaoException {
 		if (pizzas.containsKey(codePizza)) {
-			try (Connection connection = getConnection()) {
-				String requete = 
-						"DELETE from pizza " +
-						"WHERE reference = ?";
-				PreparedStatement statement = (PreparedStatement) connection.prepareStatement(requete);
+			String requete = 
+					"DELETE from pizza " +
+					"WHERE reference = ?";
+			
+			try (Connection connection = getConnection();
+				 PreparedStatement statement = (PreparedStatement) connection.prepareStatement(requete);
+			) {
 				statement.setString(1, codePizza);
 				statement.executeUpdate();
 				

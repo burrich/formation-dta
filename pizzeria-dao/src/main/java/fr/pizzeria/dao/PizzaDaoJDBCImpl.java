@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -102,6 +103,8 @@ public class PizzaDaoJDBCImpl implements IPizzaDao {
 	}
 	
 	public boolean saveAllPizzas(List<Pizza> pizzas, int nbGroupe) throws DaoException {
+		pizzas.sort(Comparator.comparing(Pizza::getCode));
+		
 		try (Connection connection = getConnection()) {
 			connection.setAutoCommit(false);
 			
@@ -121,7 +124,8 @@ public class PizzaDaoJDBCImpl implements IPizzaDao {
 						statement.setString(3, pizza.getCode());
 						statement.setDouble(4, pizza.getPrix());
 						statement.setNull(5, java.sql.Types.NULL);
-						statement.setInt(6, pizza.getCategorie().ordinal() + 1);
+						statement.setNull(6, java.sql.Types.NULL);
+						statement.setString(7, pizza.getCategorie().name());
 						statement.executeUpdate();
 					} catch (SQLException e) {
 						try {
@@ -130,8 +134,6 @@ public class PizzaDaoJDBCImpl implements IPizzaDao {
 							e1.printStackTrace();
 						}
 					}
-					
-				
 				});
 				
 				try {
@@ -192,11 +194,6 @@ public class PizzaDaoJDBCImpl implements IPizzaDao {
 			throw new DeletePizzaException("code pizza non trouvé");
 		}
 		
-		return true;
-	}
-	
-	@Override
-	public boolean importDonnees() {
 		return true;
 	}
 	

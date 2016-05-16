@@ -87,20 +87,15 @@ public class PizzaDaoJpa implements IPizzaDao {
 				.getSingleResult();
 	}
 	
-//	public void saveAllPizzas(List<Pizza> listPizzas, int nb) throws DaoException {
-//		EntityManager em = emFactory.createEntityManager();
-//		
-//		listPizzas.sort(Comparator.comparing(Pizza::getCode));
-//		
-//		ListUtils.partition(listPizzas, nb).forEach(list -> {
-//			
-//		});
-//	}
-
-	@Override
-	public boolean importDonnees() {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean saveAllPizzas(List<Pizza> listPizzas, int nb) throws DaoException {
+		EntityManager em = emFactory.createEntityManager();
+		
+		listPizzas.sort(Comparator.comparing(Pizza::getCode));
+		
+		ListUtils.partition(listPizzas, nb).forEach(list -> {
+			
+		});
+		
+		return true;
 	}
-
 }

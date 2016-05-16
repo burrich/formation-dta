@@ -1,13 +1,9 @@
 package fr.pizzeria.dao;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
 import fr.pizzeria.exception.DaoException;
-import fr.pizzeria.exception.DeletePizzaException;
-import fr.pizzeria.exception.SavePizzaException;
-import fr.pizzeria.exception.UpdatePizzaException;
 import fr.pizzeria.model.Pizza;
 
 /**
@@ -46,5 +42,5 @@ public interface IPizzaDao {
 	 */
 	boolean deletePizza(String codePizza) throws DaoException;
 	
-	public boolean importDonnees();
+	boolean saveAllPizzas(List<Pizza> listPizzas, int nb) throws DaoException;
 }

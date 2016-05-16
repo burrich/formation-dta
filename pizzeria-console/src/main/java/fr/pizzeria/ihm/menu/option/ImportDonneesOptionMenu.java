@@ -26,20 +26,14 @@ public class ImportDonneesOptionMenu extends OptionMenu {
 	public boolean execute() {
 		System.out.println(IMPORT_DONNEES_LIBELLE);
 		
-		if (pizzaDao.importDonnees()) {
-			PizzaDaoFichierImpl pizzaDaoImpl = new PizzaDaoFichierImpl();
-			try {
-				List<Pizza> pizzas = pizzaDaoImpl.findAllPizzas();
-				
-			} catch (DaoException e) {
-				e.printStackTrace();
-			}
-				
-			System.out.println("Import effectué.");
-		} else {
-			System.out.println("Veuillez configurer l’application avec une implémentation base de données.");
+		try {
+			PizzaDaoFichierImpl daoFichierImpl = new PizzaDaoFichierImpl();
+			List<Pizza> listPizzas = daoFichierImpl.findAllPizzas();
+			pizzaDao.saveAllPizzas(listPizzas, 3);
+		} catch (DaoException e) {
+			System.err.println(e.getMessage());
 		}
-
+		
 		return true;
 	}
 

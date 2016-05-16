@@ -106,7 +106,8 @@ public class PizzaDaoFichierImpl implements IPizzaDao {
 	}
 
 	@Override
-	public boolean importDonnees() {
+	public boolean saveAllPizzas(List<Pizza> listPizzas, int nb) throws DaoException {
+		// TODO Auto-generated method stub
 		return false;
 	}
 }

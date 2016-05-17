@@ -42,6 +42,9 @@ public class Pizza {
 	@ToString
 	private double prix;
 	
+	@Column(name="url_image")
+	private String urlImage;
+	
 	@ToString
 	@Enumerated(EnumType.STRING)
 	private CategoriePizza categorie;

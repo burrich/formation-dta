@@ -19,7 +19,7 @@
 			</activation>
 			
 			<properties>
-				<dao.impl>2</dao.impl>
+				<dao.impl>3</dao.impl>
 			</properties>
 		</profile>
 		

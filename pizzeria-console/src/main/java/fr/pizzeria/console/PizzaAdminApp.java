@@ -50,7 +50,7 @@ public class PizzaAdminApp {
 			}
 			break;
 		case 3:
-			java.util.logging.Logger.getLogger("org.hibernate").setLevel(Level.SEVERE);
+			java.util.logging.Logger.getLogger("org.hibernate").setLevel(Level.WARNING);
 			EntityManagerFactory emFactory = Persistence.createEntityManagerFactory("pizzeria-console");
 			lancerApplication(new PizzaDaoJpa(emFactory));;
 			emFactory.close();

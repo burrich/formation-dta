@@ -38,6 +38,7 @@ public class PizzaDaoJDBCImpl implements IPizzaDao {
 		this.url = url;
 		this.user = user;
 		this.password = password;
+		
 		List<Pizza> pizzasList = findAllPizzas();
 		if (pizzasList != null) {
 			pizzasList.forEach(pizza -> pizzas.put(pizza.getCode(), pizza));
@@ -47,17 +48,13 @@ public class PizzaDaoJDBCImpl implements IPizzaDao {
 	@Override
 	public List<Pizza> findAllPizzas() throws DaoException {
 		//TODO: utiliser la map
-		List<Pizza> pizzas = null;
+		List<Pizza> pizzas = new ArrayList<>();
 		
 		try (Connection connection = getConnection();
 			 Statement statement = connection.createStatement();
 			 ResultSet resultats = statement.executeQuery("SELECT * FROM pizza");
 		) {
 			while (resultats.next()) {
-				if (pizzas == null) {
-					pizzas = new ArrayList<>();
-				}
-				
 				String code = resultats.getString("reference");
 				String nom = resultats.getString("libelle");
 				double prix = resultats.getDouble("prix");
@@ -67,7 +64,7 @@ public class PizzaDaoJDBCImpl implements IPizzaDao {
 				pizzas.add(new Pizza(code, nom, prix, categorie));
 			}
 		} catch (SQLException e) {
-			throw new DaoException();
+			throw new DaoException(e);
 		} 
 		
 		return pizzas;
@@ -75,12 +72,6 @@ public class PizzaDaoJDBCImpl implements IPizzaDao {
 
 	@Override
 	public boolean savePizza(Pizza newPizza) throws DaoException {
-		String codePizza = newPizza.getCode();
-		
-		if (pizzas.containsKey(codePizza)) {
-			throw new SavePizzaException("code pizza déjà présent");
-		}
-		
 		try(Connection connection = getConnection()) {
 			insertPizza(newPizza, connection);
 		} catch (SQLException e) {
@@ -102,6 +93,56 @@ public class PizzaDaoJDBCImpl implements IPizzaDao {
 		}
 		
 		return true;
+	}
+	
+	
+
+	@Override
+	public boolean updatePizza(String codePizza, Pizza updatePizza) throws DaoException {
+		String requete = 
+				"UPDATE pizza " +
+				"SET libelle = ?, prix = ?, categorie = ? " + 
+				"WHERE reference = ?";
+		
+		try (Connection connection = getConnection();
+			 PreparedStatement statement = (PreparedStatement) connection.prepareStatement(requete);
+		) {
+			statement.setString(1, updatePizza.getNom());
+			statement.setDouble(2, updatePizza.getPrix());
+			statement.setString(3, updatePizza.getCategorie().name());
+			statement.setString(4, codePizza);
+			statement.executeUpdate();
+			
+			pizzas.put(codePizza, updatePizza);
+		} catch (SQLException e) {
+			throw new DaoException();
+		} 
+		
+		return true;
+	}
+
+	@Override
+	public boolean deletePizza(String codePizza) throws DaoException {
+		String requete = 
+				"DELETE from pizza " +
+				"WHERE reference = ?";
+		
+		try (Connection connection = getConnection();
+			 PreparedStatement statement = (PreparedStatement) connection.prepareStatement(requete);
+		) {
+			statement.setString(1, codePizza);
+			statement.executeUpdate();
+			
+			pizzas.remove(codePizza);
+		} catch (SQLException e) {
+			throw new DaoException();
+		} 
+		
+		return true;
+	}
+	
+	private Connection getConnection() throws SQLException {
+		return DriverManager.getConnection(url, user, password);
 	}
 	
 	private void insertListPizzas(List<List<Pizza>> listListPizzas, Connection connection) throws SQLException, DaoException {
@@ -137,61 +178,5 @@ public class PizzaDaoJDBCImpl implements IPizzaDao {
 			throw new DaoException(e);
 		}
 		
-	}
-
-	@Override
-	public boolean updatePizza(String codePizza, Pizza updatePizza) throws DaoException {
-		if (pizzas.containsKey(codePizza)) {
-			String requete = 
-					"UPDATE pizza " +
-					"SET libelle = ?, prix = ?, categorie = ? " + 
-					"WHERE reference = ?";
-			
-			try (Connection connection = getConnection();
-				 PreparedStatement statement = (PreparedStatement) connection.prepareStatement(requete);
-			) {
-				statement.setString(1, updatePizza.getNom());
-				statement.setDouble(2, updatePizza.getPrix());
-				statement.setString(3, updatePizza.getCategorie().name());
-				statement.setString(4, codePizza);
-				statement.executeUpdate();
-				
-				pizzas.put(codePizza, updatePizza);
-			} catch (SQLException e) {
-				throw new DaoException();
-			} 
-		} else {
-			throw new UpdatePizzaException("code pizza non trouvé");
-		}
-		
-		return true;
-	}
-
-	@Override
-	public boolean deletePizza(String codePizza) throws DaoException {
-		if (pizzas.containsKey(codePizza)) {
-			String requete = 
-					"DELETE from pizza " +
-					"WHERE reference = ?";
-			
-			try (Connection connection = getConnection();
-				 PreparedStatement statement = (PreparedStatement) connection.prepareStatement(requete);
-			) {
-				statement.setString(1, codePizza);
-				statement.executeUpdate();
-				
-				pizzas.remove(codePizza);
-			} catch (SQLException e) {
-				throw new DaoException();
-			} 
-		} else {
-			throw new DeletePizzaException("code pizza non trouvé");
-		}
-		
-		return true;
-	}
-	
-	private Connection getConnection() throws SQLException {
-		return DriverManager.getConnection(url, user, password);
 	}
 }

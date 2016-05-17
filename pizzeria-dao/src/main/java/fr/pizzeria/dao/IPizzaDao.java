@@ -1,7 +1,10 @@
 package fr.pizzeria.dao;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
+
+import javax.persistence.EntityManager;
 
 import fr.pizzeria.exception.DaoException;
 import fr.pizzeria.model.Pizza;
@@ -19,6 +22,15 @@ public interface IPizzaDao {
 	 * @throws SQLException 
 	 */
 	List<Pizza> findAllPizzas() throws DaoException;
+	
+	/**
+	 * 
+	 * @param code
+	 * @param connection
+	 * @return
+	 * @throws DaoException
+	 */
+	Pizza findByCode(String code) throws DaoException;
 	
 	/**
 	 * Ajoute la pizza dans le tableau pizzas[].

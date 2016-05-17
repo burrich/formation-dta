@@ -1,5 +1,6 @@
 package fr.pizzeria.dao;
 
+import java.sql.Connection;
 import java.util.Comparator;
 import java.util.List;
 
@@ -52,7 +53,7 @@ public class PizzaDaoJpa implements IPizzaDao {
 
 		try {
 			et.begin();
-			Pizza toUpdatePizza = findByCode(codePizza, em);
+			Pizza toUpdatePizza = find(codePizza, em);
 			toUpdatePizza.setNom(updatePizza.getNom());
 			toUpdatePizza.setPrix(updatePizza.getPrix());
 			toUpdatePizza.setCategorie(updatePizza.getCategorie());
@@ -71,7 +72,7 @@ public class PizzaDaoJpa implements IPizzaDao {
 
 		try {
 			et.begin();
-			Pizza deletePizza = findByCode(codePizza, em);
+			Pizza deletePizza = find(codePizza, em);
 			em.remove(deletePizza);
 			et.commit();
 		} finally {
@@ -81,7 +82,8 @@ public class PizzaDaoJpa implements IPizzaDao {
 		return true;
 	}
 	
-	public Pizza findByCode(String code, EntityManager em) {
+	//TODO: remove
+	private Pizza find(String code, EntityManager em) {
 		return em.createNamedQuery("pizza.findByCode", Pizza.class)
 				.setParameter("code", code)
 				.getSingleResult();
@@ -97,5 +99,14 @@ public class PizzaDaoJpa implements IPizzaDao {
 		});
 		
 		return true;
+	}
+
+	@Override
+	public Pizza findByCode(String code) throws DaoException {
+		EntityManager em = emFactory.createEntityManager();
+		TypedQuery<Pizza> query = em.createQuery("SELECT p FROM Pizza p WHERE p.code=:code", Pizza.class);
+		query.setParameter("code", code);
+		
+		return query.getSingleResult();
 	}
 }

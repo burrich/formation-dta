@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.EntityManager;
+
 import fr.pizzeria.exception.DaoException;
 import fr.pizzeria.exception.DeletePizzaException;
 import fr.pizzeria.exception.SavePizzaException;
@@ -83,5 +85,11 @@ public class PizzaDaoImpl implements IPizzaDao {
 	public boolean saveAllPizzas(List<Pizza> listPizzas, int nb) throws DaoException {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public Pizza findByCode(String code) throws DaoException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

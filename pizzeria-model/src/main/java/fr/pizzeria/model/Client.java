@@ -3,6 +3,7 @@ package fr.pizzeria.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,12 +21,19 @@ public class Client {
 	private String nom;
 	private String prenom;
 	private String email;
+	
+	@Column(name="mot_de_passe")
 	private String motDePasse;
 	
 	@OneToMany(mappedBy="client")
-	private List<Commande> commandes;
+	private List<Commande> commandes = new ArrayList<>();
 	
-	
+	/**
+	 * 
+	 */
+	public Client() {
+	}
+
 	/**
 	 * @param id
 	 * @param nom
@@ -40,9 +48,23 @@ public class Client {
 		this.prenom = prenom;
 		this.email = email;
 		this.motDePasse = motDePasse;
-		this.commandes = new ArrayList<>();
 	}
 	
+	/**
+	 * @param nom
+	 * @param prenom
+	 * @param email
+	 * @param motDePasse
+	 */
+	public Client(String nom, String prenom, String email, String motDePasse) {
+		super();
+		this.nom = nom;
+		this.prenom = prenom;
+		this.email = email;
+		this.motDePasse = motDePasse;
+	}
+
+
 
 	/**
 	 * @return the id

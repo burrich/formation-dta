@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -24,11 +25,13 @@ public class Commande {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 	
-	private Integer numeroCommande;
+	@Column(name="numero_commande")
+	private String numeroCommande;
 	
 	@Enumerated(EnumType.STRING)
 	private StatutCommande status;
 	
+	@Column(name="date_commande")
 	private LocalDateTime dateCommande;
 	
 	@ManyToOne
@@ -54,7 +57,7 @@ public class Commande {
 	 * @param livreur
 	 * @param client
 	 */
-	public Commande(Integer id, Integer numeroCommande, StatutCommande status, LocalDateTime dateCommande, Livreur livreur,
+	public Commande(Integer id, String numeroCommande, StatutCommande status, LocalDateTime dateCommande, Livreur livreur,
 			Client client) {
 		this.id = id;
 		this.numeroCommande = numeroCommande;
@@ -65,7 +68,7 @@ public class Commande {
 		this.pizzas = new ArrayList<>();
 	}
 
-	
+
 	/**
 	 * @return the id
 	 */
@@ -83,14 +86,14 @@ public class Commande {
 	/**
 	 * @return the numeroCommande
 	 */
-	public Integer getNumeroCommande() {
+	public String getNumeroCommande() {
 		return numeroCommande;
 	}
 
 	/**
 	 * @param numeroCommande the numeroCommande to set
 	 */
-	public void setNumeroCommande(Integer numeroCommande) {
+	public void setNumeroCommande(String numeroCommande) {
 		this.numeroCommande = numeroCommande;
 	}
 

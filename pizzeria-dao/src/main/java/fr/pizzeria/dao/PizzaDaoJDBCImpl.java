@@ -12,6 +12,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.EntityManager;
+
 import org.apache.commons.collections4.ListUtils;
 
 import fr.pizzeria.exception.DaoException;
@@ -178,5 +180,11 @@ public class PizzaDaoJDBCImpl implements IPizzaDao {
 			throw new DaoException(e);
 		}
 		
+	}
+
+	@Override
+	public Pizza findByCode(String code) throws DaoException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

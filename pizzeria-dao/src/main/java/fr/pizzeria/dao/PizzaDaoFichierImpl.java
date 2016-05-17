@@ -12,6 +12,8 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import javax.persistence.EntityManager;
+
 import fr.pizzeria.exception.DaoException;
 import fr.pizzeria.exception.DeletePizzaException;
 import fr.pizzeria.exception.SavePizzaException;
@@ -103,6 +105,12 @@ public class PizzaDaoFichierImpl implements IPizzaDao {
 		}
 		
 		return true;
+	}
+
+	@Override
+	public Pizza findByCode(String code) throws DaoException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override

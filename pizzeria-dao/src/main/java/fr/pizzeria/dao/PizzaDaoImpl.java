@@ -89,7 +89,6 @@ public class PizzaDaoImpl implements IPizzaDao {
 
 	@Override
 	public Pizza findByCode(String code) throws DaoException {
-		// TODO Auto-generated method stub
-		return null;
+		return new Pizza();
 	}
 }

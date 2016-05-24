@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import fr.pizzeria.dao.IPizzaDao;
 import fr.pizzeria.dao.PizzaDaoImpl;
+import fr.pizzeria.exception.DaoException;
+import fr.pizzeria.model.Pizza;
 
 /**
  * Servlet implementation class EditerPizzaController
@@ -29,7 +31,16 @@ public class EditerPizzaController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String code = (String) request.getAttribute("code");
+		String code = (String) request.getParameter("code");
+		
+		try {
+			Pizza pizzaToUpdate = pizzaDao.findByCode(code);
+			request.setAttribute("pizza", pizzaToUpdate);
+		} catch (DaoException e) {
+			response.sendError(500, "Erreur :(");
+		}
+		
+		this.getServletContext().getRequestDispatcher("/WEB-INF/views/pizzas/editerPizza.jsp").forward(request, response);
 	}
 
 	/**

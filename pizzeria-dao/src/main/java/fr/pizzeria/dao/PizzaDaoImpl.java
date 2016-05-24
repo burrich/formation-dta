@@ -89,6 +89,6 @@ public class PizzaDaoImpl implements IPizzaDao {
 
 	@Override
 	public Pizza findByCode(String code) throws DaoException {
-		return new Pizza();
+		return pizzas.get(code);
 	}
 }

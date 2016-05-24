@@ -4,7 +4,6 @@
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>pizzeria-admin-app</artifactId>
 	<packaging>war</packaging>
-	<version>0.0.1-SNAPSHOT</version>
 	<name>pizzeria-admin-app Maven Webapp</name>
 	<url>http://maven.apache.org</url>
   

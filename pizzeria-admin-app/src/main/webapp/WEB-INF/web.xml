@@ -4,6 +4,14 @@
 
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
+  <filter>
+  	<filter-name>AuthentificationFilter</filter-name>
+  	<filter-class>fr.pizzeria.admin.web.AuthentificationFilter</filter-class>
+  </filter>
+  <filter-mapping>
+  	<filter-name>AuthentificationFilter</filter-name>
+  	<url-pattern>*</url-pattern>
+  </filter-mapping>
   
   <servlet>
   	<servlet-name>PizzaServletWebApi</servlet-name>
@@ -21,6 +29,10 @@
   	<servlet-name>NouvellePizzaController</servlet-name>
   	<servlet-class>fr.pizzeria.admin.web.NouvellePizzaController</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>LoginController</servlet-name>
+  	<servlet-class>fr.pizzeria.admin.web.LoginController</servlet-class>
+  </servlet>
   
   <servlet-mapping>
   	<servlet-name>PizzaServletWebApi</servlet-name>
@@ -37,5 +49,9 @@
   <servlet-mapping>
   	<servlet-name>NouvellePizzaController</servlet-name>
   	<url-pattern>/pizzas/new</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>LoginController</servlet-name>
+  	<url-pattern>/login</url-pattern>
   </servlet-mapping>
 </web-app>

@@ -20,7 +20,7 @@ import fr.pizzeria.model.Pizza;
  * Servlet implementation class EditerPizzaController
  */
 public class EditerPizzaController extends HttpServlet {
-	private static final Logger LOG = Logger.getLogger(ListerPizzaController.class.toString());
+	private static final Logger LOG = Logger.getLogger(EditerPizzaController.class.toString());
 	
 	private IPizzaDao pizzaDao = PizzaDaoImpl.PIZZA_DAO_DEFAULT_IMPL;
        

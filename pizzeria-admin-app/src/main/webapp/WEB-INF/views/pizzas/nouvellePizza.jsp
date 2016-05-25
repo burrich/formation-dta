@@ -7,26 +7,24 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Editer une pizzas</title>
+<title>Nouvelle pizzas</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 </head>
 <body>
-	<% Pizza pizza = (Pizza) request.getAttribute("pizza"); %>
-	
 	<div class="container">
-		<h1>Editer une pizza</h1>
+		<h1>Nouvelle pizza</h1>
 	
-		<form class="form-horizontal" action="<%= request.getContextPath() %>/pizzas/edit?code=<%= pizza.getCode() %>" method="POST">
+		<form class="form-horizontal" action="<%= request.getContextPath() %>/pizzas/new" method="POST">
 			<fieldset>
 			
 			<!-- Form Name -->
-			<legend>Edition</legend>
+			<legend>Ajout</legend>
 			
 			<!-- Text input-->
 			<div class="form-group">
 			  <label class="col-md-1 control-label" for="code">Code</label>  
 			  <div class="col-md-4">
-			  <input id="code" name="code" type="text" value="<%= pizza.getCode() %>" readonly placeholder="" class="form-control input-md">
+			  <input id="code" name="code" type="text" placeholder="" class="form-control input-md">
 			    
 			  </div>
 			</div>
@@ -35,7 +33,7 @@
 			<div class="form-group">
 			  <label class="col-md-1 control-label" for="nom">Nom</label>  
 			  <div class="col-md-4">
-			  <input id="nom" name="nom" type="text" value="<%= pizza.getNom() %>" placeholder="" class="form-control input-md">
+			  <input id="nom" name="nom" type="text" placeholder="" class="form-control input-md">
 			    
 			  </div>
 			</div>
@@ -44,7 +42,7 @@
 			<div class="form-group">
 			  <label class="col-md-1 control-label" for="prix">Prix</label>  
 			  <div class="col-md-4">
-			  <input id="prix" name="prix" type="text" value="<%= pizza.getPrix() %>" placeholder="" class="form-control input-md">
+			  <input id="prix" name="prix" type="text" placeholder="" class="form-control input-md">
 			    
 			  </div>
 			</div>
@@ -54,9 +52,9 @@
 			  <label class="col-md-1 control-label" for="categorie">Catégorie</label>
 			  <div class="col-md-4">
 			    <select id="categorie" name="categorie" class="form-control">
-			      <option value="<%= CategoriePizza.VIANDE %>" <% if (CategoriePizza.VIANDE.equals(pizza.getCategorie())) out.print("selected"); %> ><%= CategoriePizza.VIANDE.getLibelle() %></option>
-			      <option value="<%= CategoriePizza.POISSON %>" <% if (CategoriePizza.POISSON.equals(pizza.getCategorie())) out.print("selected"); %> ><%= CategoriePizza.POISSON.getLibelle() %></option>
-			      <option value="<%= CategoriePizza.SANS_VIANDE %>" <% if (CategoriePizza.SANS_VIANDE.equals(pizza.getCategorie())) out.print("selected"); %> ><%= CategoriePizza.SANS_VIANDE.getLibelle() %></option>
+			      <option value="<%= CategoriePizza.VIANDE %>"><%= CategoriePizza.VIANDE.getLibelle() %></option>
+			      <option value="<%= CategoriePizza.POISSON %>"><%= CategoriePizza.POISSON.getLibelle() %></option>
+			      <option value="<%= CategoriePizza.SANS_VIANDE %>"><%= CategoriePizza.SANS_VIANDE.getLibelle() %></option>
 			    </select>
 			  </div>
 			</div>

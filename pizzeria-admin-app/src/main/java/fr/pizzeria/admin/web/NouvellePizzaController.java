@@ -17,35 +17,18 @@ import fr.pizzeria.model.CategoriePizza;
 import fr.pizzeria.model.Pizza;
 
 /**
- * Servlet implementation class EditerPizzaController
+ * Servlet implementation class NouvellePizzaController
  */
-public class EditerPizzaController extends HttpServlet {
+public class NouvellePizzaController extends HttpServlet {
 	private static final Logger LOG = Logger.getLogger(ListerPizzaController.class.toString());
 	
-	private IPizzaDao pizzaDao = PizzaDaoImpl.PIZZA_DAO_DEFAULT_IMPL;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public EditerPizzaController() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-
+	private IPizzaDao pizzaDao = PizzaDaoImpl.PIZZA_DAO_DEFAULT_IMPL;   
+	
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String code = (String) request.getParameter("code");
-		
-		try {
-			Pizza pizzaToUpdate = pizzaDao.findByCode(code);
-			request.setAttribute("pizza", pizzaToUpdate);
-		} catch (DaoException e) {
-			response.sendError(500, "Erreur :(");
-		}
-		
-		this.getServletContext().getRequestDispatcher("/WEB-INF/views/pizzas/editerPizza.jsp").forward(request, response);
+		this.getServletContext().getRequestDispatcher("/WEB-INF/views/pizzas/nouvellePizza.jsp").forward(request, response);
 	}
 
 	/**
@@ -60,11 +43,11 @@ public class EditerPizzaController extends HttpServlet {
 		if (StringUtils.isBlank(code) || StringUtils.isBlank(nom) || StringUtils.isBlank(prix) || StringUtils.isBlank(categorie)) {
 			LOG.info("J'ai bien recu le POST mais un des paramètres requis est vide");
 		} else {
-			Pizza toUpdatePizza = new Pizza(code, nom, Double.parseDouble(prix), CategoriePizza.valueOf(categorie));
+			Pizza newPizza = new Pizza(code, nom, Double.parseDouble(prix), CategoriePizza.valueOf(categorie));
 			try {
-				pizzaDao.updatePizza(code, toUpdatePizza);
+				pizzaDao.savePizza(newPizza);
 				response.setStatus(201);
-				LOG.info("J'ai bien recu le POST pour la pizza : " + toUpdatePizza.toString());
+				LOG.info("J'ai bien recu le POST pour la pizza : " + newPizza.toString());
 			} catch (DaoException e) {
 				response.sendError(500, "Erreur :(");
 			}

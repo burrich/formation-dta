@@ -13,6 +13,8 @@
 	<div class="container">
 		<h1>Liste des pizzas</h1>
 		
+		<a class="btn btn-default" href="<%= request.getContextPath() %>/pizzas/new" role="button"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Nouvelle Pizza</a><br><br>
+		
 		<table class="table table-striped">
 			<thead>
 				<tr>
@@ -34,10 +36,10 @@
 						<td><%= pizza.getCode() %></td>
 						<td><%= pizza.getNom() %></td>
 						<td><%= pizza.getPrix() %></td>
-						<td><%= pizza.getCategorie() %></td>
+						<td><%= pizza.getCategorie().getLibelle() %></td>
 						<td><img src="http://placehold.it/150x150"></td>
-						<td><a class="btn btn-primary" href="/pizzeria-admin-app/pizzas/edit?code=<%= pizza.getCode() %>" role="button"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Editer</a>
-						<a class="btn btn-danger" href="/pizzeria-admin-app/pizzas/supprimer?code=<%= pizza.getCode() %>" role="button"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Supprimer</a></td>
+						<td><a class="btn btn-primary" href="<%= request.getContextPath() %>/pizzas/edit?code=<%= pizza.getCode() %>" role="button"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Editer</a>
+						<a class="btn btn-danger" href="<%= request.getContextPath() %>/pizzas/supprimer?code=<%= pizza.getCode() %>" role="button"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Supprimer</a></td>
 					</tr>
 					<%
 				}

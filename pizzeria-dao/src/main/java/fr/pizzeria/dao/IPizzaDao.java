@@ -15,6 +15,9 @@ import fr.pizzeria.model.Pizza;
  *
  */
 public interface IPizzaDao {
+	//TODO: a supprimer !
+	IPizzaDao PIZZA_DAO_DEFAULT_IMPL = new PizzaDaoImpl();
+	
 	/**
 	 * Retourne la liste des pizza
 	 * @return Liste de pizza

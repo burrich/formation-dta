@@ -1,5 +1,7 @@
 <%@page import="fr.pizzeria.model.Pizza"%>
 <%@page import="java.util.List"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page isELIgnored="false" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -13,6 +15,7 @@
 	<div class="container">
 		<h1>Liste des pizzas</h1>
 		
+		<!-- ${pageContext.request.contextPath} -->
 		<a class="btn btn-default" href="<%= request.getContextPath() %>/pizzas/new" role="button"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Nouvelle Pizza</a><br><br>
 		
 		<table class="table table-striped">
@@ -28,22 +31,17 @@
 			</thead>
 		
 			<tbody>
-				<%
-				List<Pizza> pizzas = (List<Pizza>) request.getAttribute("pizzas");
-				for(Pizza pizza : pizzas) {
-					%>
+				<c:forEach var="pizza" items="${pizzas }">
 					<tr>
-						<td><%= pizza.getCode() %></td>
-						<td><%= pizza.getNom() %></td>
-						<td><%= pizza.getPrix() %></td>
-						<td><%= pizza.getCategorie().getLibelle() %></td>
+						<td>${pizza.code}</td>
+						<td>${pizza.nom}</td>
+						<td>${pizza.prix}</td>
+						<td>${pizza.categorie.libelle}</td>
 						<td><img src="http://placehold.it/150x150"></td>
-						<td><a class="btn btn-primary" href="<%= request.getContextPath() %>/pizzas/edit?code=<%= pizza.getCode() %>" role="button"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Editer</a>
-						<a class="btn btn-danger" href="<%= request.getContextPath() %>/pizzas/supprimer?code=<%= pizza.getCode() %>" role="button"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Supprimer</a></td>
+						<td><a class="btn btn-primary" href="<%= request.getContextPath() %>/pizzas/edit?code=${pizza.code}" role="button"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Editer</a>
+						<a class="btn btn-danger" href="<%= request.getContextPath() %>/pizzas/supprimer?code=${pizza.code}" role="button"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Supprimer</a></td>
 					</tr>
-					<%
-				}
-				%>
+				</c:forEach>
 			</tbody>
 		</table>
 	</div>

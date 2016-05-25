@@ -1,6 +1,8 @@
 <%@page import="fr.pizzeria.model.CategoriePizza"%>
 <%@page import="fr.pizzeria.model.Pizza"%>
 <%@page import="java.util.List"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page isELIgnored="false" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -52,9 +54,9 @@
 			  <label class="col-md-1 control-label" for="categorie">Catégorie</label>
 			  <div class="col-md-4">
 			    <select id="categorie" name="categorie" class="form-control">
-			      <option value="<%= CategoriePizza.VIANDE %>"><%= CategoriePizza.VIANDE.getLibelle() %></option>
-			      <option value="<%= CategoriePizza.POISSON %>"><%= CategoriePizza.POISSON.getLibelle() %></option>
-			      <option value="<%= CategoriePizza.SANS_VIANDE %>"><%= CategoriePizza.SANS_VIANDE.getLibelle() %></option>
+			      <option value="${CategoriePizza.VIANDE}">${CategoriePizza.VIANDE.libelle}</option>
+			      <option value="${CategoriePizza.POISSON}">${CategoriePizza.POISSON.libelle}</option>
+			      <option value="${CategoriePizza.SANS_VIANDE}">${CategoriePizza.SANS_VIANDE.libelle}</option>
 			    </select>
 			  </div>
 			</div>

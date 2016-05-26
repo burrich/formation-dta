@@ -22,6 +22,7 @@
 		<java.source>1.8</java.source>
 		<java.target>1.8</java.target>
 		<servlet.version>3.1.0</servlet.version>
+		<cdi.version>1.2</cdi.version>
 	</properties>
 
 	<build>
@@ -148,6 +149,14 @@
 			    <version>1.2</version>
 			    <scope>provided</scope>
 			</dependency>
+			
+			<dependency>
+			    <groupId>javax.enterprise</groupId>
+			    <artifactId>cdi-api</artifactId>
+			    <version>1.2</version>
+			    <scope>provided</scope>
+			</dependency>
+
 		</dependencies>
 	</dependencyManagement>
 </project>

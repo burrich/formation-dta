@@ -23,6 +23,7 @@
 		<java.target>1.8</java.target>
 		<servlet.version>3.1.0</servlet.version>
 		<cdi.version>1.2</cdi.version>
+		<ejb.version>1.0.0.Final</ejb.version>
 	</properties>
 
 	<build>
@@ -154,6 +155,13 @@
 			    <groupId>javax.enterprise</groupId>
 			    <artifactId>cdi-api</artifactId>
 			    <version>1.2</version>
+			    <scope>provided</scope>
+			</dependency>
+			
+			<dependency>
+			    <groupId>org.jboss.spec.javax.ejb</groupId>
+			    <artifactId>jboss-ejb-api_3.2_spec</artifactId>
+			    <version>${ejb.version}</version>
 			    <scope>provided</scope>
 			</dependency>
 

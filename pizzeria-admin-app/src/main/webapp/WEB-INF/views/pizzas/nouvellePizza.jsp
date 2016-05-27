@@ -54,9 +54,9 @@
 			  <label class="col-md-1 control-label" for="categorie">Catégorie</label>
 			  <div class="col-md-4">
 			    <select id="categorie" name="categorie" class="form-control">
-			      <option value="${CategoriePizza.VIANDE}">${CategoriePizza.VIANDE.libelle}</option>
-			      <option value="${CategoriePizza.POISSON}">${CategoriePizza.POISSON.libelle}</option>
-			      <option value="${CategoriePizza.SANS_VIANDE}">${CategoriePizza.SANS_VIANDE.libelle}</option>
+			      <option value="${CategoriePizza[0]}">${CategoriePizza[0].libelle}</option>
+			      <option value="${CategoriePizza[1]}">${CategoriePizza[1].libelle}</option>
+			      <option value="${CategoriePizza[2]}">${CategoriePizza[2].libelle}</option>
 			    </select>
 			  </div>
 			</div>

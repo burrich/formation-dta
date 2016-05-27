@@ -3,6 +3,7 @@ package fr.pizzeria.admin.web;
 import java.io.IOException;
 import java.util.logging.Logger;
 
+import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
 
+import fr.pizzeria.admin.metier.PizzaService;
 import fr.pizzeria.dao.IPizzaDao;
 import fr.pizzeria.dao.PizzaDaoImpl;
 import fr.pizzeria.exception.DaoException;
@@ -24,16 +26,8 @@ import fr.pizzeria.model.Pizza;
 public class EditerPizzaController extends HttpServlet {
 	private static final Logger LOG = Logger.getLogger(EditerPizzaController.class.toString());
 	
-	private IPizzaDao pizzaDao = PizzaDaoImpl.PIZZA_DAO_DEFAULT_IMPL;
+	@Inject private PizzaService pizzaService;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public EditerPizzaController() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -41,8 +35,9 @@ public class EditerPizzaController extends HttpServlet {
 		String code = (String) request.getParameter("code");
 		
 		try {
-			Pizza pizzaToUpdate = pizzaDao.findByCode(code);
+			Pizza pizzaToUpdate = pizzaService.findByCode(code);
 			request.setAttribute("pizza", pizzaToUpdate);
+			request.setAttribute("CategoriePizza", CategoriePizza.values());
 		} catch (DaoException e) {
 			response.sendError(500, "Erreur :(");
 		}
@@ -59,12 +54,12 @@ public class EditerPizzaController extends HttpServlet {
 		String prix = request.getParameter("prix");
 		String categorie = request.getParameter("categorie");
 		
-		if (StringUtils.isBlank(code) || StringUtils.isBlank(nom) || StringUtils.isBlank(prix) || StringUtils.isBlank(categorie)) {
+		if (StringUtils.isBlank(code) || StringUtils.isBlank(nom) || StringUtils.isBlank(prix)|| StringUtils.isBlank(categorie)) {
 			LOG.info("J'ai bien recu le POST mais un des paramètres requis est vide");
 		} else {
 			Pizza toUpdatePizza = new Pizza(code, nom, Double.parseDouble(prix), CategoriePizza.valueOf(categorie));
 			try {
-				pizzaDao.updatePizza(code, toUpdatePizza);
+				pizzaService.updatePizza(code, toUpdatePizza);
 				response.setStatus(201);
 				LOG.info("J'ai bien recu le POST pour la pizza : " + toUpdatePizza.toString());
 			} catch (DaoException e) {

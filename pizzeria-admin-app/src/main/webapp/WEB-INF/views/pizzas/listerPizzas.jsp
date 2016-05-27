@@ -18,32 +18,39 @@
 		<!-- ${pageContext.request.contextPath} -->
 		<a class="btn btn-default" href="<%= request.getContextPath() %>/pizzas/new" role="button"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Nouvelle Pizza</a><br><br>
 		
-		<table class="table table-striped">
-			<thead>
-				<tr>
-					<td>CODE</td>
-					<td>NOM</td>
-					<td>PRIX</td>
-					<td>CATEGORIE</td>
-					<td>IMAGE</td>
-					<td></td>
-				</tr>
-			</thead>
-		
-			<tbody>
-				<c:forEach var="pizza" items="${pizzas }">
-					<tr>
-						<td>${pizza.code}</td>
-						<td>${pizza.nom}</td>
-						<td>${pizza.prix}</td>
-						<td>${pizza.categorie.libelle}</td>
-						<td><img src="http://placehold.it/150x150"></td>
-						<td><a class="btn btn-primary" href="<%= request.getContextPath() %>/pizzas/edit?code=${pizza.code}" role="button"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Editer</a>
-						<a class="btn btn-danger" href="<%= request.getContextPath() %>/pizzas/supprimer?code=${pizza.code}" role="button"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Supprimer</a></td>
-					</tr>
-				</c:forEach>
-			</tbody>
-		</table>
+		<c:choose>
+			<c:when test="${pizzas.size() == 0}">
+				<p>Pas de pizzas !</p>
+			</c:when>
+			<c:otherwise>
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<td>CODE</td>
+							<td>NOM</td>
+							<td>PRIX</td>
+							<td>CATEGORIE</td>
+							<td>IMAGE</td>
+							<td></td>
+						</tr>
+					</thead>
+				
+					<tbody>
+						<c:forEach var="pizza" items="${pizzas }">
+							<tr>
+								<td>${pizza.code}</td>
+								<td>${pizza.nom}</td>
+								<td>${pizza.prix}</td>
+								<td>${pizza.categorie.libelle}</td>
+								<td><img src="http://placehold.it/150x150"></td>
+								<td><a class="btn btn-primary" href="<%= request.getContextPath() %>/pizzas/edit?code=${pizza.code}" role="button"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Editer</a>
+								<a class="btn btn-danger" href="<%= request.getContextPath() %>/pizzas/supprimer?code=${pizza.code}" role="button"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Supprimer</a></td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
+			</c:otherwise>
+		</c:choose>
 	</div>
 </body>
 </html>

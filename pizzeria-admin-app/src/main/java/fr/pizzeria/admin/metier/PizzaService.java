@@ -2,36 +2,48 @@ package fr.pizzeria.admin.metier;
 
 import java.util.List;
 
-import javax.inject.Inject;
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
-import fr.pizzeria.dao.IPizzaDao;
 import fr.pizzeria.exception.DaoException;
 import fr.pizzeria.model.Pizza;
 
+@Stateless
 public class PizzaService {
-	@Inject private IPizzaDao pizzaDao;
+	@PersistenceContext(unitName="pizzeria-admin-app") private EntityManager em;
 	
 	public List<Pizza> findAllPizzas() throws DaoException {
-		return pizzaDao.findAllPizzas();
+		TypedQuery<Pizza> query = em.createQuery("select p from Pizza p", Pizza.class);
+		
+		return query.getResultList();
 	}
 
 	public Pizza findByCode(String code) throws DaoException {
-		return pizzaDao.findByCode(code);
+		TypedQuery<Pizza> query = em.createQuery("SELECT p FROM Pizza p WHERE p.code=:code", Pizza.class);
+		query.setParameter("code", code);
+		
+		return query.getSingleResult();
 	}
 	
 	public boolean savePizza(Pizza newPizza) throws DaoException {
-		return pizzaDao.savePizza(newPizza);
+		em.persist(newPizza);
+		return true;
 	}
 	
 	public boolean updatePizza(String codePizza, Pizza updatePizza) throws DaoException {
-		return pizzaDao.updatePizza(codePizza, updatePizza);
-	}
-
-	public boolean deletePizza(String codePizza) throws DaoException {
-		return pizzaDao.deletePizza(codePizza);
+		Pizza toUpdatePizza = find(codePizza, em);
+		toUpdatePizza.setNom(updatePizza.getNom());
+		toUpdatePizza.setPrix(updatePizza.getPrix());
+		toUpdatePizza.setCategorie(updatePizza.getCategorie());
+		
+		return true;
 	}
 	
-	public boolean saveAllPizzas(List<Pizza> listPizzas, int nb) throws DaoException {
-		return pizzaDao.saveAllPizzas(listPizzas, nb);
+	private Pizza find(String code, EntityManager em) {
+		return em.createNamedQuery("pizza.findByCode", Pizza.class)
+				.setParameter("code", code)
+				.getSingleResult();
 	}
 }

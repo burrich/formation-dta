@@ -35,5 +35,22 @@
 		    <groupId>org.hibernate.javax.persistence</groupId>
 		    <artifactId>hibernate-jpa-2.1-api</artifactId>
 		</dependency>
+		
+		<dependency>
+		    <groupId>org.jboss.spec.javax.ws.rs</groupId>
+		    <artifactId>jboss-jaxrs-api_2.0_spec</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.glassfish.jersey.media</groupId>
+			<artifactId>jersey-media-json-jackson</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		
+		<dependency>
+		    <groupId>org.glassfish.jersey.core</groupId>
+		    <artifactId>jersey-client</artifactId>
+		    <scope>provided</scope>
+		</dependency>
 	</dependencies>
 </project>

@@ -12,6 +12,7 @@ import fr.pizzeria.dao.PizzaDaoFichierImpl;
 import fr.pizzeria.dao.PizzaDaoImpl;
 import fr.pizzeria.dao.PizzaDaoJDBCImpl;
 import fr.pizzeria.dao.PizzaDaoJpa;
+import fr.pizzeria.dao.PizzaDaoREST;
 import fr.pizzeria.exception.DaoException;
 import fr.pizzeria.ihm.menu.Menu;
 
@@ -54,6 +55,10 @@ public class PizzaAdminApp {
 			EntityManagerFactory emFactory = Persistence.createEntityManagerFactory("pizzeria-console");
 			lancerApplication(new PizzaDaoJpa(emFactory));;
 			emFactory.close();
+		case 4:
+			// REST impl
+			lancerApplication(new PizzaDaoREST());
+			break;
 		default:
 			System.err.println("Aucune configuration Dao trouvée. Le fichier application.properties est-il correctement configuré ?");
 			break;

@@ -17,7 +17,7 @@ import javax.servlet.http.HttpSession;
 /**
  * Servlet Filter implementation class AuthentificationFilter
  */
-@WebFilter(urlPatterns={"*"})
+@WebFilter(urlPatterns={"/pizzas/*"})
 public class AuthentificationFilter implements Filter {
 	private static final Logger LOG = Logger.getLogger(AuthentificationFilter.class.toString());
 
@@ -44,6 +44,7 @@ public class AuthentificationFilter implements Filter {
 		String currentPath = httpRequest.getRequestURI();
 		String loginPath = httpRequest.getContextPath() + "/login";
 		
+		//TODO: remove login page test
 		if (isConnected != null || currentPath.equals(loginPath)) {
 			chain.doFilter(request, response);
 		} else {

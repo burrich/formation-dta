@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
@@ -45,5 +46,12 @@ public class PizzaService {
 		return em.createNamedQuery("pizza.findByCode", Pizza.class)
 				.setParameter("code", code)
 				.getSingleResult();
+	}
+	
+	public boolean deletePizza(String codePizza) throws DaoException {
+		Pizza deletePizza = find(codePizza, em);
+		em.remove(deletePizza);
+		
+		return true;
 	}
 }

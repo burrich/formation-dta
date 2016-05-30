@@ -16,14 +16,15 @@ public class PizzaDaoREST implements IPizzaDao {
 
 	public PizzaDaoREST() {
 		Client client = ClientBuilder.newClient();
-		target = client.target("htp://localhost:8080").path("api").path("pizzas");
+		target = client.target("http://localhost:8080/pizzeria-admin-app").path("api").path("pizzas");
 	}
 	
 	@Override
 	public List<Pizza> findAllPizzas() throws DaoException {
 		Builder builder = target.request();
-		Response response = builder.get();
-		
+//		Pizza pizza = builder.get(Pizza.class);
+		Object response = builder.get().getEntity();
+	
 		return null;
 	}
 

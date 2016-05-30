@@ -21,13 +21,6 @@ import javax.servlet.http.HttpSession;
 public class AuthentificationFilter implements Filter {
 	private static final Logger LOG = Logger.getLogger(AuthentificationFilter.class.toString());
 
-    /**
-     * Default constructor. 
-     */
-    public AuthentificationFilter() {
-        // TODO Auto-generated constructor stub
-    }
-
 	/**
 	 * @see Filter#destroy()
 	 */

@@ -63,6 +63,7 @@ public class PizzaAdminApp {
 			System.err.println("Aucune configuration Dao trouvée. Le fichier application.properties est-il correctement configuré ?");
 			break;
 		}
+		
 	}
 	
 	private static void lancerApplication(IPizzaDao dao) {

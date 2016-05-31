@@ -6,6 +6,7 @@ import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Invocation.Builder;
 import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.Response;
 
 import fr.pizzeria.exception.DaoException;
@@ -22,10 +23,7 @@ public class PizzaDaoREST implements IPizzaDao {
 	@Override
 	public List<Pizza> findAllPizzas() throws DaoException {
 		Builder builder = target.request();
-//		Pizza pizza = builder.get(Pizza.class);
-		Object response = builder.get().getEntity();
-	
-		return null;
+		return builder.get(new GenericType<List<Pizza>>(){});
 	}
 
 	@Override

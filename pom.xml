@@ -26,6 +26,8 @@
 		<ejb.version>1.0.0.Final</ejb.version>
 		<jaxrs.version>1.0.0.Final</jaxrs.version>
 		<jersey.version>2.22</jersey.version>
+		<jerseyclient.version>2.22</jerseyclient.version>
+		<springframework.vesion>4.2.6.RELEASE</springframework.vesion>
 	</properties>
 
 	<build>
@@ -184,8 +186,16 @@
 			<dependency>
 			    <groupId>org.glassfish.jersey.core</groupId>
 			    <artifactId>jersey-client</artifactId>
-			    <version>2.22</version>
+			    <version>${jerseyclient.version}</version>
 			    <scope>runtime</scope>
+			</dependency>
+			
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-framework-bom</artifactId>
+				<version>${springframework.vesion}</version>
+				<type>pom</type>
+				<scope>import</scope>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>

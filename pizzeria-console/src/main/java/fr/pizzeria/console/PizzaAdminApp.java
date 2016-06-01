@@ -19,6 +19,7 @@ import fr.pizzeria.ihm.menu.Menu;
 /**
  * Classe principale contenant le main.
  * @author Nicolas
+ * TODO: SUPPRIMER !
  */
 public class PizzaAdminApp {
 	/**

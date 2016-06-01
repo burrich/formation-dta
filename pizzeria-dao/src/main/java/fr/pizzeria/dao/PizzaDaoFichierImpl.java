@@ -118,4 +118,11 @@ public class PizzaDaoFichierImpl implements IPizzaDao {
 		// TODO Auto-generated method stub
 		return false;
 	}
+
+	/**
+	 * @return the pizzas
+	 */
+	public Map<String, Pizza> getPizzas() {
+		return pizzas;
+	}
 }

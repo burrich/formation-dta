@@ -1,5 +1,7 @@
 package fr.pizzeria.ihm.menu.option;
 
+import java.util.ArrayList;
+import java.util.Collections;import java.util.Comparator;
 import java.util.List;
 
 import fr.pizzeria.dao.IPizzaDao;
@@ -28,7 +30,8 @@ public class ImportDonneesOptionMenu extends OptionMenu {
 		
 		try {
 			PizzaDaoFichierImpl daoFichierImpl = new PizzaDaoFichierImpl();
-			List<Pizza> listPizzas = daoFichierImpl.findAllPizzas();
+			List<Pizza> listPizzas = new ArrayList<>(daoFichierImpl.getPizzas().values());
+			listPizzas.sort(Comparator.comparing(Pizza::getCode));
 			pizzaDao.saveAllPizzas(listPizzas, 3);
 		} catch (DaoException e) {
 			System.err.println(e.getMessage());

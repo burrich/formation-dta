@@ -4,6 +4,12 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.TreeMap;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
+
 import fr.pizzeria.dao.IPizzaDao;
 import fr.pizzeria.ihm.menu.option.AfficherPizzaTarifEleveOptionMenu;
 import fr.pizzeria.ihm.menu.option.ImportDonneesOptionMenu;
@@ -19,9 +25,11 @@ import fr.pizzeria.ihm.menu.option.SupprimerPizzaOptionMenu;
  * Représente le menu console.
  * @author Nicolas
  */
+@Component
 public class Menu {
 	private static final String MENU_TITRE_LIBELLE = "Pizzeria Administration";
 	private Map<Integer, OptionMenu> options = new TreeMap<>();
+	
 	private Scanner sc;
 	
 	/**
@@ -29,6 +37,7 @@ public class Menu {
 	 * @param sc Objet Scanner
 	 * @param pizzaDao Interface IPizzaDao
 	 */
+	@Autowired
 	public Menu(Scanner sc, IPizzaDao pizzaDao) {
 		initialiserOptions(pizzaDao, sc);
 	}

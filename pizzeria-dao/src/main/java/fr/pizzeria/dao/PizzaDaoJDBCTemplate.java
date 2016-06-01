@@ -30,14 +30,12 @@ import fr.pizzeria.model.Pizza;
 public class PizzaDaoJDBCTemplate implements IPizzaDao {
 
 	private JdbcTemplate jdbcTemplate;
-	private TransactionTemplate transactionTemplate;
 	
 	@Autowired
 	private BatchPizzaDaoJDBCTemplate batchPizzaDaoJDBCTemplate;
 	
 	@Autowired
-	public PizzaDaoJDBCTemplate(DataSource dataSource, PlatformTransactionManager transactionManager) {
-		transactionTemplate = new TransactionTemplate(transactionManager);
+	public PizzaDaoJDBCTemplate(DataSource dataSource) {
 		jdbcTemplate = new JdbcTemplate(dataSource);
 	}
 	
@@ -91,9 +89,7 @@ public class PizzaDaoJDBCTemplate implements IPizzaDao {
 		List<List<Pizza>> listPartitionnee = ListUtils.partition(listPizzas, nb);
 		
 		for (List<Pizza> list3Pizzas : listPartitionnee) {
-			for (Pizza pizza : list3Pizzas) {
 				batchPizzaDaoJDBCTemplate.insertListPizzas(list3Pizzas);
-			}
 		}
 		
 		return true;

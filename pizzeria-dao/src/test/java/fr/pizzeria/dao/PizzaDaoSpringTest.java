@@ -9,9 +9,11 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @ComponentScan("fr.pizzeria")
+@EnableTransactionManagement(proxyTargetClass=true)
 public class PizzaDaoSpringTest {
 
 	@Bean
@@ -19,7 +21,7 @@ public class PizzaDaoSpringTest {
 		return new EmbeddedDatabaseBuilder()
 				.setType(EmbeddedDatabaseType.H2)
 				.addScript("db-schema.sql")
-				.addScript("db-data.sql")
+//				.addScript("db-data.sql")
 				.build();
 	}
 	

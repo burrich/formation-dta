@@ -1,5 +1,6 @@
 package fr.pizzeria.console;
 
+import java.sql.SQLException;
 import java.util.Scanner;
 
 import javax.persistence.EntityManagerFactory;
@@ -66,7 +67,7 @@ public class PizzeriaAppSpringConfig {
 	}
 	
 	@Bean
-	public DataSource dataSource(@Value("${jdbc.url}") String url, @Value("${jdbc.user}") String user, @Value("${jdbc.password}") String motDePasse) {
+	public DataSource dataSource(@Value("${jdbc.url}") String url, @Value("${jdbc.user}") String user, @Value("${jdbc.password}") String motDePasse) throws SQLException {
 		return new DriverManagerDataSource(url, user, motDePasse);
 	}
 	

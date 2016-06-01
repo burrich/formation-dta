@@ -25,7 +25,7 @@ public class BatchPizzaDaoJDBCTemplate {
 		jdbcTemplate = new JdbcTemplate(dataSource);
 	}
 	
-	@Transactional(propagation=Propagation.REQUIRES_NEW)
+	@Transactional(propagation=Propagation.REQUIRES_NEW, rollbackFor=DaoException.class)
 	public void insertListPizzas(List<Pizza> list3Pizzas) throws DaoException {
 		for (Pizza pizza : list3Pizzas) {
 			if (pizza.getCode().equals("ORI")) {

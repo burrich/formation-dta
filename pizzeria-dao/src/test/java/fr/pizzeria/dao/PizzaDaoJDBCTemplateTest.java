@@ -1,5 +1,7 @@
 package fr.pizzeria.dao;
 
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 import org.junit.Assert;
@@ -14,26 +16,39 @@ import fr.pizzeria.model.CategoriePizza;
 import fr.pizzeria.model.Pizza;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes=PizzaDaoSpringTest.class)
+@ContextConfiguration(classes = PizzaDaoSpringTest.class)
 public class PizzaDaoJDBCTemplateTest {
-	
-	@Autowired private PizzaDaoJDBCTemplate pizzaDaoJDBCTemplate;
-	
-	@Test
-	public void testFindAllPizzas() throws DaoException {
-		List<Pizza> pizzas = pizzaDaoJDBCTemplate.findAllPizzas();
-		Assert.assertEquals(4, pizzas.size());
-	}
-	
+
+	@Autowired
+	private PizzaDaoJDBCTemplate pizzaDaoJDBCTemplate;
+
 //	@Test
-//	public void testSavePizza() throws DaoException {
-//		Pizza newPizza = new Pizza("TEST", "test", 12, CategoriePizza.VIANDE);
-//		pizzaDaoJDBCTemplate.savePizza(newPizza);
-//		Pizza pizza = pizzaDaoJDBCTemplate.findByCode(newPizza.getCode());
-//		Assert.assertTrue();
+//	public void testFindAllPizzas() throws DaoException {
+//		List<Pizza> pizzas = pizzaDaoJDBCTemplate.findAllPizzas();
+//		Assert.assertEquals(4, pizzas.size());
 //	}
-	
-//	public void testSaveAllPizzas() {
-//		pizzaDaoJDBCTemplate.saveAllPizzas(listPizzas, nb)
-//	}
+
+	// @Test
+	// public void testSavePizza() throws DaoException {
+	// Pizza newPizza = new Pizza("TEST", "test", 12, CategoriePizza.VIANDE);
+	// pizzaDaoJDBCTemplate.savePizza(newPizza);
+	// Pizza pizza = pizzaDaoJDBCTemplate.findByCode(newPizza.getCode());
+	// Assert.assertTrue();
+	// }
+
+	@Test
+	public void testSaveAllPizzas() throws DaoException {
+		PizzaDaoFichierImpl daoFichierImpl = new PizzaDaoFichierImpl();
+		List<Pizza> listPizzas = new ArrayList<>(daoFichierImpl.getPizzas().values());
+		listPizzas.sort(Comparator.comparing(Pizza::getCode));
+
+		List<Pizza> pizzas = null;
+		try {
+			pizzaDaoJDBCTemplate.saveAllPizzas(listPizzas, 3);
+		} catch (DaoException e) {
+			pizzas = pizzaDaoJDBCTemplate.findAllPizzas();
+		} finally {
+			Assert.assertEquals(3, pizzas.size());
+		}
+	}
 }

@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @ComponentScan("fr.pizzeria")
-@EnableTransactionManagement(proxyTargetClass=true)
+@EnableTransactionManagement(proxyTargetClass = true)
 public class PizzaDaoSpringTest {
 
 	@Bean
@@ -21,7 +21,7 @@ public class PizzaDaoSpringTest {
 		return new EmbeddedDatabaseBuilder()
 				.setType(EmbeddedDatabaseType.H2)
 				.addScript("db-schema.sql")
-//				.addScript("db-data.sql")
+				.addScript("db-data.sql")
 				.build();
 	}
 	

@@ -6,3 +6,5 @@ CREATE TABLE `pizza` (
   `prix` double NOT NULL,
   `url_image` varchar(255) DEFAULT NULL
 );
+
+ALTER TABLE `pizza` ADD CONSTRAINT `code_unique` UNIQUE(`reference`);

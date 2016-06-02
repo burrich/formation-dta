@@ -1,26 +1,17 @@
 package fr.pizzeria.dao;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.Comparator;
 import java.util.List;
 
 import javax.sql.DataSource;
 
 import org.apache.commons.collections4.ListUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.dao.DataAccessException;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.PlatformTransactionManager;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.transaction.support.TransactionTemplate;
 
 import fr.pizzeria.exception.DaoException;
 import fr.pizzeria.model.CategoriePizza;
@@ -28,7 +19,7 @@ import fr.pizzeria.model.Pizza;
 
 @Repository
 @Lazy
-public class PizzaDaoJDBCTemplate implements IPizzaDao {
+public class PizzaDaoJdbcTemplate implements IPizzaDao {
 
 	private JdbcTemplate jdbcTemplate;
 	private RowMapper<Pizza> rowMapperPizza = (rs, rowNum) -> new Pizza(rs.getString("reference"), rs.getString("libelle"),
@@ -38,7 +29,7 @@ public class PizzaDaoJDBCTemplate implements IPizzaDao {
 	private BatchPizzaDaoJDBCTemplate batchPizzaDaoJDBCTemplate;
 
 	@Autowired
-	public PizzaDaoJDBCTemplate(DataSource dataSource) {
+	public PizzaDaoJdbcTemplate(DataSource dataSource) {
 		jdbcTemplate = new JdbcTemplate(dataSource);
 	}
 

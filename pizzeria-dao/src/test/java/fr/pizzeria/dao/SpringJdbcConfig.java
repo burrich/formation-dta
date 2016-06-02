@@ -11,10 +11,10 @@ import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-//@Configuration
-//@ComponentScan("fr.pizzeria")
-//@EnableTransactionManagement(proxyTargetClass = true)
-public class SpringConfig {
+@Configuration
+@ComponentScan("fr.pizzeria.dao")
+@EnableTransactionManagement // (proxyTargetClass = true)
+public class SpringJdbcConfig {
 
 	@Bean
 	public DataSource dataSource() {

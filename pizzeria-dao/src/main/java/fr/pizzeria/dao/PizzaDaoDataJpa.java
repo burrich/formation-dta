@@ -22,7 +22,13 @@ public class PizzaDaoDataJpa implements IPizzaDao {
 
 	@Override
 	public List<Pizza> findAllPizzas() throws DaoException {
-		return repo.findAll();
+		List<Pizza> pizzas = null;
+		try {
+			pizzas = repo.findAll();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return pizzas;
 	}
 
 	@Override

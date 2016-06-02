@@ -25,9 +25,6 @@ public abstract class PizzaDaoTest {
 	
 	protected IPizzaDao pizzaDao;
 
-//	@Autowired
-//	private PizzaDaoJDBCTemplate pizzaDaoJDBCTemplate;
-
 	@Test
 	public void testFindAllPizzas() throws DaoException {
 		List<Pizza> pizzas = pizzaDao.findAllPizzas();

@@ -1,6 +1,5 @@
 package fr.pizzeria.dao;
 
-import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
 import org.springframework.context.annotation.Bean;
@@ -19,28 +18,13 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableJpaRepositories("fr.pizzeria.dao")
 @EnableTransactionManagement
 public class SpringDataJpaConfig {
-//	@Bean
-//	public PlatformTransactionManager transactionManager() {
-//		JpaTransactionManager txManager = new JpaTransactionManager();
-//		txManager.setEntityManagerFactory(entityManagerFactory());
-//		
-//		return txManager;
-//	}
-//	
-//	@Bean
-//	public EntityManagerFactory entityManagerFactory() { // EntityManagerFactory
-//		LocalEntityManagerFactoryBean emfBean = new LocalEntityManagerFactoryBean();
-//		emfBean.setPersistenceUnitName("pizzeria-pu");
-//		return emfBean.getObject();
-//	}
 	
 	@Bean
 	public DataSource dataSource() {
 		return new EmbeddedDatabaseBuilder()
 				.setType(EmbeddedDatabaseType.H2)
 				.addScript("db-schema.sql")
-				.addScript("db-data.sql")
-				.build();
+				.addScript("db-data.sql").build();
 	}
 	
 	@Bean

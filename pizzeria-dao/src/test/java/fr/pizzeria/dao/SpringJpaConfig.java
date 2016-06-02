@@ -1,6 +1,5 @@
 package fr.pizzeria.dao;
 
-import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
 import org.springframework.context.annotation.Bean;
@@ -14,9 +13,10 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
  
 @Configuration
-@ComponentScan("fr.pizzeria")
+@ComponentScan("fr.pizzeria.dao")
 @EnableTransactionManagement
 public class SpringJpaConfig {
+	
 	@Bean
 	public DataSource dataSource() {
 		return new EmbeddedDatabaseBuilder()
@@ -26,8 +26,9 @@ public class SpringJpaConfig {
 				.build();
 	}
 	
+	
 	@Bean
-	public PlatformTransactionManager transactionManager(DataSource dataSource) {
+	public PlatformTransactionManager transactionManager() {
 		return new JpaTransactionManager();
 	}
 	

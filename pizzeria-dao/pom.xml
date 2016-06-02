@@ -92,9 +92,9 @@
 			<artifactId>spring-data-jpa</artifactId>
 		</dependency>
 		
-		<dependency>
+		<!-- <dependency>
 			<groupId>ch.qos.logback</groupId>
 			<artifactId>logback-classic</artifactId>
-		</dependency>
+		</dependency> -->
 	</dependencies>
 </project>

@@ -29,7 +29,7 @@ public class Pizza {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int id;
+	private Integer id;
 	
 	@ToString
 	@Column(name="reference")
@@ -92,7 +92,7 @@ public class Pizza {
 	/**
 	 * @return the id
 	 */
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 

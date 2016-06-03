@@ -8,3 +8,12 @@ CREATE TABLE `pizza` (
 );
 
 ALTER TABLE `pizza` ADD CONSTRAINT `code_unique` UNIQUE(`reference`);
+
+CREATE TABLE `performance` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `service` varchar(255) DEFAULT NULL,
+  `date` datetime DEFAULT NULL,
+  `tempsExecution` int(11) DEFAULT NULL
+);
+
+ALTER TABLE `performance` ADD CONSTRAINT `service_unique` UNIQUE(`service`);

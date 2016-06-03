@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import fr.pizzeria.exception.DaoException;
 import fr.pizzeria.model.Pizza;
+import fr.pizzeria.repo.IPizzaRepository;
 
 @Repository
 @Lazy

@@ -1,4 +1,4 @@
-package web;
+package fr.pizzeria.web;
 
 import java.util.logging.Logger;
 
@@ -26,7 +26,7 @@ public class WebAppInitializer implements WebApplicationInitializer {
 		
 		ServletRegistration.Dynamic dispatcher = servletContext.addServlet("dispatcher", new DispatcherServlet(webContext));
 		dispatcher.setLoadOnStartup(1);
-		dispatcher.addMapping("mvc");
+		dispatcher.addMapping("/mvc/*");
 		
 		servletContext.addListener(new ContextLoaderListener(webContext));
 	}

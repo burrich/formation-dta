@@ -68,9 +68,7 @@ public class PizzaAdminAppOld {
 	}
 	
 	private static void lancerApplication(IPizzaDao dao) {
-		try(Scanner sc = new Scanner(System.in)) {
-			Menu menu = new Menu(sc,dao);
-			menu.afficher();
-		}
+		Menu menu = new Menu(dao);
+		menu.afficher();
 	}
 }

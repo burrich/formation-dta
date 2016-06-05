@@ -21,6 +21,7 @@ import fr.pizzeria.model.Pizza;
  * @see IPizzaDao
  * @author Nicolas
  */
+@Repository
 public class PizzaDaoImpl implements IPizzaDao {
 	private Map<String, Pizza> pizzas = new HashMap<>();
 	

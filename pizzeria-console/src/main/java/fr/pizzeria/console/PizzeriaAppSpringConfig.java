@@ -3,56 +3,33 @@ package fr.pizzeria.console;
 import java.sql.SQLException;
 import java.util.Scanner;
 
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.sql.DataSource;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.orm.jpa.LocalEntityManagerFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import fr.pizzeria.dao.IPizzaDao;
-import fr.pizzeria.dao.PizzaDaoImpl;
-import fr.pizzeria.dao.PizzaDaoJpa;
-
 @Configuration
-@ComponentScan("fr.pizzeria")
+@ComponentScan({"fr.pizzeria.ihm.menu", "fr.pizzeria.dao"})
+@EnableJpaRepositories("fr.pizzeria.repo")
 @EnableTransactionManagement
 public class PizzeriaAppSpringConfig {
-
-//	@Bean
-//	public IPizzaDao pizzaDao() {
-//		return new PizzaDaoImpl();
-//	}
 	
-//	@Bean
-//	public PizzaDaoJDBCImpl pizzaDaoJDBCImpl() throws DaoException {
-//		ResourceBundle jdbcBundle = ResourceBundle.getBundle("jdbc");
-//		String driver = jdbcBundle.getString("jdbc.driver");
-//		String url = jdbcBundle.getString("jdbc.url");
-//		String user = jdbcBundle.getString("jdbc.user");
-//		String password = jdbcBundle.getString("jdbc.password");
-//		
-//		return new PizzaDaoJDBCImpl(driver, url, user, password);
-//	}
-	
-//	@Bean
-//	public PizzaDaoJpa pizzaDaoJpa(EntityManagerFactory emf) {
-//		return new PizzaDaoJpa(emf);
-//	}~
-	
-//	@Bean
-//	public EntityManagerFactory emf() {
-//		return Persistence.createEntityManagerFactory("pizzeria-console");
-//	}
+	@Bean
+	public LocalEntityManagerFactoryBean entityManagerFactory() {
+		LocalEntityManagerFactoryBean emfBean = new LocalEntityManagerFactoryBean();
+		emfBean.setPersistenceUnitName("pizzeria-console");
+		return emfBean;
+	}
 	
 	@Bean
 	public Scanner scanner() {

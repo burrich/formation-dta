@@ -29,30 +29,28 @@ import fr.pizzeria.ihm.menu.option.SupprimerPizzaOptionMenu;
 public class Menu {
 	private static final String MENU_TITRE_LIBELLE = "Pizzeria Administration";
 	private Map<Integer, OptionMenu> options = new TreeMap<>();
-	
+
+	@Autowired
 	private Scanner sc;
 	
 	/**
 	 * Initialise les options.
-	 * @param sc Objet Scanner
 	 * @param pizzaDao Interface IPizzaDao
 	 */
 	@Autowired
-	public Menu(Scanner sc, IPizzaDao pizzaDao) {
-		initialiserOptions(pizzaDao, sc);
+	public Menu(@Qualifier("pizzaDaoJdbcTemplate") IPizzaDao pizzaDao) {
+		initialiserOptions(pizzaDao);
 	}
 	
 	/**
 	 * Initilialise le scanner et les options.
 	 * @param pizzaDao Interface IPizzaDao
-	 * @param sc Objet Scanner
 	 */
-	private void initialiserOptions(IPizzaDao pizzaDao, Scanner sc) {
-		this.sc = sc;
+	private void initialiserOptions(IPizzaDao pizzaDao) {
 		options.put(1, new ListerPizzasOptionMenu(pizzaDao));
-		options.put(2, new NouvellePizzaOptionMenu(pizzaDao, this.sc));
-		options.put(3, new MajPizzaOptionMenu(pizzaDao, this.sc));
-		options.put(4, new SupprimerPizzaOptionMenu(pizzaDao, this.sc));
+		options.put(2, new NouvellePizzaOptionMenu(pizzaDao, sc));
+		options.put(3, new MajPizzaOptionMenu(pizzaDao, sc));
+		options.put(4, new SupprimerPizzaOptionMenu(pizzaDao, sc));
 		options.put(5, new ListerPizzasGroupesParCategorieOptionMenu(pizzaDao));
 		options.put(6, new AfficherPizzaTarifEleveOptionMenu(pizzaDao));
 		options.put(7, new ImportDonneesOptionMenu(pizzaDao));

@@ -19,7 +19,7 @@ public class PerformanceAspect {
 
 	@Autowired private IPerformanceRepository performanceRepository;
 	
-	@Around("execution(* fr.pizzeria.dao.PizzaDaoDataJpa.findAllPizzas())")
+	@Around("execution(* fr.pizzeria.repo.IPizzaRepository.*(..))")
 	public Object saveExecTime(ProceedingJoinPoint pjp) throws Throwable {
 		long start = System.currentTimeMillis();
         Object obj = pjp.proceed();
